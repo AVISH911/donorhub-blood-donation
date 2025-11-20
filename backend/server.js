@@ -110,6 +110,13 @@ const Doctor = mongoose.model('Doctor', DoctorSchema);
 
 // ============= HEALTH CHECK ROUTE =============
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'DonorHub API is running' 
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
