@@ -13,10 +13,10 @@ const createTransporter = () => {
     maxConnections: 1,
     rateDelta: 20000,
     rateLimit: 5,
-    // Increase timeout to 30 seconds
-    connectionTimeout: 30000,
-    greetingTimeout: 30000,
-    socketTimeout: 30000
+    // Increase timeout to 60 seconds for slow connections
+    connectionTimeout: 60000,
+    greetingTimeout: 60000,
+    socketTimeout: 60000
   });
 };
 
@@ -131,15 +131,44 @@ const sendOTPEmail = async (email, otp) => {
       text: emailTemplate.text
     };
 
-    // Set timeout for email sending (30 seconds for better reliability)
-    const sendWithTimeout = Promise.race([
-      transporter.sendMail(mailOptions),
-      new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Email sending timeout')), 30000)
-      )
-    ]);
+    // Set timeout for email sending (60 seconds for better reliability)
+    // Try sending with retry logic
+    let lastError;
+    const maxRetries = 2;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`[EMAIL SERVICE] Attempt ${attempt}/${maxRetries} to send email to ${email}`);
+        
+        const sendWithTimeout = Promise.race([
+          transporter.sendMail(mailOptions),
+          new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Email sending timeout')), 60000)
+          )
+        ]);
 
-    const info = await sendWithTimeout;
+        const info = await sendWithTimeout;
+        
+        console.log(`[EMAIL SERVICE] OTP email sent successfully to ${email}: ${info.messageId}`);
+        
+        return {
+          success: true,
+          messageId: info.messageId
+        };
+      } catch (err) {
+        lastError = err;
+        console.error(`[EMAIL SERVICE] Attempt ${attempt} failed:`, err.message);
+        
+        // If not the last attempt, wait before retrying
+        if (attempt < maxRetries) {
+          console.log(`[EMAIL SERVICE] Waiting 2 seconds before retry...`);
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+      }
+    }
+    
+    // If all retries failed, throw the last error
+    throw lastError;
     
     console.log(`[EMAIL SERVICE] OTP email sent successfully to ${email}: ${info.messageId}`);
     
