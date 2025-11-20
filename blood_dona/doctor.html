@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration - HealthConnect</title>
+        <link rel="stylesheet" href="../css/doctor.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-stethoscope"></i>
+                <h1>HealthConnect</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Join Our Network of Healthcare Professionals</h2>
+            <p>Connect with patients, expand your practice, and provide quality care through our platform</p>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Personal Info</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Professional Info</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Account Setup</div>
+                </div>
+            </div>
+            
+            <div class="registration-container">
+                <!-- Registration Info -->
+                <div class="registration-info">
+                    <div class="section-title">
+                        <h2>Why Join HealthConnect?</h2>
+                    </div>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-user-md"></i>
+                            <div>
+                                <strong>Expand Your Practice</strong>
+                                <p>Reach more patients and grow your practice</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <strong>Easy Appointment Management</strong>
+                                <p>Streamline scheduling and reduce no-shows</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-file-medical"></i>
+                            <div>
+                                <strong>Digital Health Records</strong>
+                                <p>Access patient records securely from anywhere</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <strong>Better Patient Communication</strong>
+                                <p>Connect with patients through secure messaging</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-chart-line"></i>
+                            <div>
+                                <strong>Practice Analytics</strong>
+                                <p>Gain insights into your practice performance</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="requirements">
+                        <h3>Registration Requirements</h3>
+                        <ul>
+                            <li>Valid medical license</li>
+                            <li>Board certification (if applicable)</li>
+                            <li>Malpractice insurance</li>
+                            <li>DEA registration (for US physicians)</li>
+                            <li>Professional references</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Registration Form -->
+                <div class="registration-form-container">
+                    <div class="section-title">
+                        <h2>Doctor Registration</h2>
+                    </div>
+                    
+                    <form id="doctorRegistrationForm">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-user"></i>
+                                Personal Information
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                                    <div class="error" id="firstNameError">Please enter your first name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                                    <div class="error" id="lastNameError">Please enter your last name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                                    <div class="error" id="emailError">Please enter a valid email address</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                                    <div class="error" id="phoneError">Please enter a valid phone number</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Date of Birth *</label>
+                                    <input type="date" id="dateOfBirth" class="form-control" required>
+                                    <div class="error" id="dobError">Please enter your date of birth</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gender">Gender *</label>
+                                    <select id="gender" class="form-control" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                    <div class="error" id="genderError">Please select your gender</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Professional Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-briefcase-medical"></i>
+                                Professional Information
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="specialization">Specialization *</label>
+                                    <select id="specialization" class="form-control" required>
+                                        <option value="">Select Specialization</option>
+                                        <option value="cardiology">Cardiology</option>
+                                        <option value="dermatology">Dermatology</option>
+                                        <option value="endocrinology">Endocrinology</option>
+                                        <option value="gastroenterology">Gastroenterology</option>
+                                        <option value="neurology">Neurology</option>
+                                        <option value="oncology">Oncology</option>
+                                        <option value="ophthalmology">Ophthalmology</option>
+                                        <option value="orthopedics">Orthopedics</option>
+                                        <option value="pediatrics">Pediatrics</option>
+                                        <option value="psychiatry">Psychiatry</option>
+                                        <option value="surgery">Surgery</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <div class="error" id="specializationError">Please select your specialization</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="licenseNumber">Medical License Number *</label>
+                                    <input type="text" id="licenseNumber" class="form-control" placeholder="Enter your license number" required>
+                                    <div class="error" id="licenseNumberError">Please enter your medical license number</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="yearsOfExperience">Years of Experience *</label>
+                                    <input type="number" id="yearsOfExperience" class="form-control" placeholder="Enter years of experience" min="0" max="50" required>
+                                    <div class="error" id="experienceError">Please enter your years of experience</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="qualifications">Highest Qualification *</label>
+                                    <select id="qualifications" class="form-control" required>
+                                        <option value="">Select Qualification</option>
+                                        <option value="mbbs">MBBS</option>
+                                        <option value="md">MD</option>
+                                        <option value="ms">MS</option>
+                                        <option value="dm">DM</option>
+                                        <option value="mch">MCh</option>
+                                        <option value="phd">PhD</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <div class="error" id="qualificationsError">Please select your highest qualification</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="hospital">Hospital/Clinic Name *</label>
+                                    <input type="text" id="hospital" class="form-control" placeholder="Enter hospital or clinic name" required>
+                                    <div class="error" id="hospitalError">Please enter your hospital or clinic name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="bio">Professional Bio</label>
+                                    <textarea id="bio" class="form-control" rows="4" placeholder="Tell us about your professional background and expertise"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Address Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Practice Location
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="address">Street Address *</label>
+                                    <input type="text" id="address" class="form-control" placeholder="Enter your practice address" required>
+                                    <div class="error" id="addressError">Please enter your practice address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                                    <div class="error" id="cityError">Please enter your city</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="state">State/Province *</label>
+                                    <input type="text" id="state" class="form-control" placeholder="Enter your state" required>
+                                    <div class="error" id="stateError">Please enter your state</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP/Postal Code *</label>
+                                    <input type="text" id="zipCode" class="form-control" placeholder="Enter your ZIP code" required>
+                                    <div class="error" id="zipCodeError">Please enter your ZIP code</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <select id="country" class="form-control" required>
+                                        <option value="">Select Country</option>
+                                        <option value="USA">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="India">India</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div class="error" id="countryError">Please select your country</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Setup -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-lock"></i>
+                                Account Setup
+                            </h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="password">Password *</label>
+                                    <input type="password" id="password" class="form-control" placeholder="Create a password" required>
+                                    <div class="error" id="passwordError">Password must be at least 8 characters with uppercase, lowercase, and number</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="confirmPassword">Confirm Password *</label>
+                                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                                    <div class="error" id="confirmPasswordError">Passwords do not match</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">
+                                <i class="fas fa-file-contract"></i>
+                                Terms & Conditions
+                            </h3>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the <a href="#" class="terms-link">Terms and Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a> *</label>
+                                <div class="error" id="termsError">You must agree to the terms and conditions</div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="licenseVerification" name="licenseVerification" required>
+                                <label for="licenseVerification">I certify that all provided information, including my medical license, is accurate and current *</label>
+                                <div class="error" id="licenseVerificationError">You must certify the accuracy of your information</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="reset" class="btn-reset">Reset Form</button>
+                            <button type="submit" class="btn-submit">Complete Registration</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>HealthConnect</h3>
+                    <p>Connecting patients with healthcare professionals for better health outcomes.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Doctors</a></li>
+                        <li><a href="#">Join as Doctor</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Health Articles</a></li>
+                        <li><a href="#">Medical Specialties</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Medical Center, Healthcare City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@healthconnect.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 HealthConnect Healthcare Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Registration Submitted Successfully!</h2>
+            <p>Thank you for your interest in joining HealthConnect. Our team will review your application and contact you within 2-3 business days.</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="closeModal">Close</button>
+                <button class="btn btn-primary" id="goToDashboard">View Status</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('doctorRegistrationForm');
+    const closeModal = document.getElementById('closeModal');
+    const goToDashboard = document.getElementById('goToDashboard');
+    
+    // Modal button handlers
+    if (closeModal) {
+        closeModal.addEventListener('click', function() {
+            const modal = document.getElementById('successModal');
+            if (modal) modal.style.display = 'none';
+        });
+    }
+    
+    if (goToDashboard) {
+        goToDashboard.addEventListener('click', function() {
+            // Redirect to blood bank info page (partner dashboard)
+            window.location.href = 'blood_bank_info.html';
+        });
+    }
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Check if terms are accepted
+            const terms = document.getElementById('terms');
+            const license = document.getElementById('licenseVerification');
+            
+            if (!terms.checked || !license.checked) {
+                alert('Please accept all terms and conditions');
+                return;
+            }
+            
+            // Submit to backend API
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registering...';
+            
+            // Collect form data
+            const formData = collectDoctorFormData();
+            console.log('Submitting doctor data:', formData);
+            
+            // Submit to API
+            submitDoctorRegistration(formData)
+                .then(response => {
+                    console.log('✅ API response:', response);
+                    displayDoctorSuccess(response.doctor || response);
+                    form.reset();
+                })
+                .catch(error => {
+                    console.error('❌ Error:', error);
+                    const errorMessage = handleApiError(error);
+                    displayDoctorError(errorMessage);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                });
+        });
+    }
+});
+</script>
+    <!-- API Integration Scripts -->
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/doctor-api.js"></script>
+    
+    <!-- Other Scripts -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+<script>
+// Protect this page - require login
+if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') !== 'true') {
+    alert('🔒 Please login first to register as a doctor');
+    window.location.href = '../index.html';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+# Email Delivery Testing Guide
+
+This guide explains how to test email delivery across different email providers (Gmail, Outlook, Yahoo) for the DonorHub OTP verification system.
+
+## Prerequisites
+
+1. **Email Service Account**: You need an email account configured for sending emails (typically Gmail with App Password)
+2. **Test Email Addresses**: Access to Gmail, Outlook, and Yahoo email accounts for testing
+3. **Environment Configuration**: Properly configured `.env` file
+
+## Setup Instructions
+
+### 1. Configure Email Service
+
+Create or update your `.env` file in the `backend` directory:
+
+```env
+# Email Service Configuration
+EMAIL_SERVICE=gmail
+EMAIL_USER=your-email@gmail.com
+EMAIL_PASSWORD=your-app-password
+EMAIL_FROM=DonorHub <noreply@donorhub.com>
+
+# Test Email Addresses (optional)
+TEST_EMAIL_GMAIL=your-test@gmail.com
+TEST_EMAIL_OUTLOOK=your-test@outlook.com
+TEST_EMAIL_YAHOO=your-test@yahoo.com
+```
+
+### 2. Gmail App Password Setup
+
+If using Gmail as your email service:
+
+1. Go to your Google Account settings
+2. Navigate to Security → 2-Step Verification
+3. Scroll down to "App passwords"
+4. Generate a new app password for "Mail"
+5. Copy the 16-character password
+6. Use this password in `EMAIL_PASSWORD` (not your regular Gmail password)
+
+### 3. Configure Test Email Addresses
+
+Set up test email addresses for each provider:
+
+- **Gmail**: Create or use an existing Gmail account
+- **Outlook**: Create or use an existing Outlook/Hotmail account
+- **Yahoo**: Create or use an existing Yahoo Mail account
+
+Add these addresses to your `.env` file as shown above.
+
+## Running the Tests
+
+### Automated Test Suite
+
+Run the complete email delivery test suite:
+
+```bash
+cd backend
+node __tests__/email-delivery-test.js
+```
+
+This will:
+- ✓ Verify email service configuration
+- ✓ Test email formatting (HTML and plain text)
+- ✓ Test email delivery timing (should be < 10 seconds)
+- ✓ Send test emails to Gmail, Outlook, and Yahoo addresses
+- ✓ Provide a summary of results
+
+### Manual Testing
+
+You can also test individual providers manually:
+
+```bash
+# Test Gmail delivery
+TEST_EMAIL_GMAIL=your-test@gmail.com node __tests__/email-delivery-test.js
+
+# Test Outlook delivery
+TEST_EMAIL_OUTLOOK=your-test@outlook.com node __tests__/email-delivery-test.js
+
+# Test Yahoo delivery
+TEST_EMAIL_YAHOO=your-test@yahoo.com node __tests__/email-delivery-test.js
+```
+
+## What to Verify
+
+After running the tests, check each email inbox and verify:
+
+### Email Delivery
+- [ ] Email received in inbox (not spam/junk folder)
+- [ ] Email received within 10 seconds of sending
+- [ ] No delivery errors or bounces
+
+### Email Content
+- [ ] Subject line: "Your DonorHub Verification Code"
+- [ ] Sender name: "DonorHub" or configured EMAIL_FROM
+- [ ] OTP code is clearly visible and readable
+- [ ] OTP code is exactly 6 digits
+- [ ] Expiration notice states "10 minutes"
+
+### Email Formatting
+- [ ] HTML version displays correctly with styling
+- [ ] OTP code is large, bold, and centered
+- [ ] Red color scheme matches DonorHub branding
+- [ ] Dashed border around OTP code is visible
+- [ ] Plain text version is readable (fallback)
+
+### Mobile Responsiveness
+- [ ] Email displays correctly on mobile devices
+- [ ] OTP code is easily readable on small screens
+- [ ] No horizontal scrolling required
+
+### Spam/Deliverability
+- [ ] Email not marked as spam
+- [ ] Email passes spam filters
+- [ ] Sender reputation is good
+
+## Common Issues and Solutions
+
+### Issue: Email Not Received
+
+**Possible Causes:**
+- Email in spam/junk folder
+- Incorrect email address
+- Email service authentication failure
+- Network connectivity issues
+
+**Solutions:**
+1. Check spam/junk folders
+2. Verify email address is correct
+3. Verify EMAIL_USER and EMAIL_PASSWORD are correct
+4. Check Gmail App Password is valid
+5. Ensure 2-Step Verification is enabled (for Gmail)
+
+### Issue: Authentication Failed
+
+**Error:** `EAUTH` or "Email service authentication failed"
+
+**Solutions:**
+1. Verify you're using an App Password (not regular password)
+2. Regenerate App Password in Google Account settings
+3. Ensure 2-Step Verification is enabled
+4. Check EMAIL_USER matches the account that generated the App Password
+
+### Issue: Email Delivery Timeout
+
+**Error:** `ETIMEDOUT` or "Email service timeout"
+
+**Solutions:**
+1. Check internet connection
+2. Verify firewall settings allow SMTP connections
+3. Try a different email service provider
+4. Check if SMTP ports (587, 465) are blocked
+
+### Issue: Email Goes to Spam
+
+**Solutions:**
+1. Add sender to contacts/safe senders list
+2. Configure SPF/DKIM records (for production)
+3. Use a verified domain for EMAIL_FROM
+4. Avoid spam trigger words in email content
+
+### Issue: HTML Formatting Not Displaying
+
+**Solutions:**
+1. Check if email client supports HTML
+2. Verify plain text version is readable
+3. Test in different email clients
+4. Check for CSS compatibility issues
+
+## Provider-Specific Notes
+
+### Gmail
+- Most reliable for testing
+- Requires App Password with 2-Step Verification
+- Good spam filtering
+- Excellent HTML support
+
+### Outlook/Hotmail
+- May have stricter spam filters
+- Good HTML support
+- Sometimes slower delivery
+- Check "Junk Email" folder
+
+### Yahoo Mail
+- Moderate spam filtering
+- Good HTML support
+- May require additional verification for new senders
+- Check "Spam" folder
+
+## Testing Checklist
+
+Use this checklist when testing email delivery:
+
+### Pre-Test Setup
+- [ ] `.env` file configured with email credentials
+- [ ] Test email addresses configured for all providers
+- [ ] Gmail App Password generated (if using Gmail)
+- [ ] Internet connection stable
+
+### During Testing
+- [ ] Run automated test suite
+- [ ] Note any errors or warnings
+- [ ] Record delivery times
+- [ ] Check spam folders
+
+### Post-Test Verification
+- [ ] All test emails received
+- [ ] Email formatting correct on all providers
+- [ ] OTP codes clearly visible
+- [ ] No spam classification
+- [ ] Mobile display verified
+
+## Test Results Documentation
+
+After completing tests, document your results:
+
+```
+Test Date: [Date]
+Email Service: [Gmail/Outlook/Yahoo]
+Test Email: [email address]
+
+Results:
+- Gmail Delivery: [PASS/FAIL] - [Notes]
+- Outlook Delivery: [PASS/FAIL] - [Notes]
+- Yahoo Delivery: [PASS/FAIL] - [Notes]
+- Email Formatting: [PASS/FAIL] - [Notes]
+- Delivery Timing: [X seconds]
+- Spam Classification: [Yes/No]
+
+Issues Found:
+[List any issues]
+
+Recommendations:
+[List any recommendations]
+```
+
+## Production Considerations
+
+Before deploying to production:
+
+1. **Use a Dedicated Email Service**
+   - Consider SendGrid, AWS SES, or Mailgun
+   - Better deliverability and reliability
+   - Higher sending limits
+
+2. **Configure Domain Authentication**
+   - Set up SPF records
+   - Configure DKIM signing
+   - Add DMARC policy
+
+3. **Monitor Email Metrics**
+   - Track delivery rates
+   - Monitor bounce rates
+   - Watch spam complaints
+
+4. **Implement Email Logging**
+   - Log all email attempts
+   - Track delivery status
+   - Monitor for failures
+
+5. **Set Up Alerts**
+   - Alert on high failure rates
+   - Monitor authentication issues
+   - Track spam reports
+
+## Support
+
+If you encounter issues not covered in this guide:
+
+1. Check the email service logs in the console
+2. Review the error messages in the test output
+3. Verify environment variables are set correctly
+4. Test with a different email provider
+5. Check the Nodemailer documentation: https://nodemailer.com/
+
+## Requirements Coverage
+
+This testing guide covers:
+- **Requirement 1.3**: Email service sends OTP to provided email address within 10 seconds
+- Email formatting verification
+- Multi-provider deliverability testing
+- Spam filter compatibility
+- Mobile responsiveness

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Requests - DonorHub</title>
+        <link rel="stylesheet" href="../css/blood_request.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html" class="active">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-hand-holding-heart"></i> Blood Requests</h1>
+            <p>Post urgent blood requests or help someone in need by responding to requests</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div>
+                <h2>Active Blood Requests</h2>
+                <p style="color: var(--gray); font-size: 14px;">Showing <span id="requestsCount">6</span> requests</p>
+            </div>
+            <button class="btn btn-primary" id="newRequestBtn">
+                <i class="fas fa-plus-circle"></i> Post New Request
+            </button>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="search-filters">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search blood requests by location, hospital, blood type, or component...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="filterBloodType">Blood Type</label>
+                    <select id="filterBloodType">
+                        <option value="">All Blood Types</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterComponent">Blood Component</label>
+                    <select id="filterComponent">
+                        <option value="">All Components</option>
+                        <option value="PRC">Packed Red Cells (PRC)</option>
+                        <option value="FFP">Fresh Frozen Plasma (FFP)</option>
+                        <option value="PLT">Platelets (PLT)</option>
+                        <option value="CRYO">Cryoprecipitate (CRYO)</option>
+                        <option value="WB">Whole Blood (WB)</option>
+                        <option value="LDP">Leukocyte-Depleted PRC (LDP)</option>
+                        <option value="SDP">Single Donor Platelets (SDP)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterUrgency">Urgency Level</label>
+                    <select id="filterUrgency">
+                        <option value="">Any Urgency</option>
+                        <option value="high">High Urgency</option>
+                        <option value="medium">Medium Urgency</option>
+                        <option value="low">Low Urgency</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filterLocation">Location</label>
+                    <select id="filterLocation">
+                        <option value="">All Locations</option>
+                        <option value="new-york">New York</option>
+                        <option value="los-angeles">Los Angeles</option>
+                        <option value="chicago">Chicago</option>
+                        <option value="houston">Houston</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requests Grid -->
+        <div class="requests-grid" id="requestsContainer">
+            <!-- Request cards will be dynamically loaded here -->
+        </div>
+
+        <!-- Empty State (hidden by default) -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+            <i class="fas fa-inbox"></i>
+            <h3>No blood requests found</h3>
+            <p>There are no blood requests matching your criteria. Try adjusting your filters or be the first to post a request.</p>
+            <button class="btn btn-primary" id="newRequestBtnEmpty" style="margin-top: 20px;">
+                <i class="fas fa-plus-circle"></i> Post New Request
+            </button>
+        </div>
+    </div>
+
+    <!-- New Request Modal -->
+    <div class="modal" id="requestModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Post New Blood Request</h2>
+            </div>
+            <div class="modal-body">
+                <form id="requestForm">
+                    <div class="form-group">
+                        <label for="patientName">Patient Name</label>
+                        <input type="text" id="patientName" class="form-control" placeholder="Enter patient's name" required>
+                    </div>
+                    
+                    <!-- Blood Type and Units - Enhanced with Component Selection -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bloodType">Blood Type Needed</label>
+                            <select id="bloodType" class="form-control" required>
+                                <option value="">Select Blood Type</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitsNeeded">Units Needed</label>
+                            <input type="number" id="unitsNeeded" class="form-control" min="1" max="10" value="1" required>
+                        </div>
+                    </div>
+                    
+                    <!-- Blood Component Selection -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bloodComponent">Blood Component</label>
+                            <select id="bloodComponent" class="form-control">
+                                <option value="">Select Blood Component (Optional)</option>
+                                <option value="PRC">Packed Red Cells (PRC)</option>
+                                <option value="FFP">Fresh Frozen Plasma (FFP)</option>
+                                <option value="PLT">Platelets (PLT)</option>
+                                <option value="CRYO">Cryoprecipitate (CRYO)</option>
+                                <option value="WB">Whole Blood (WB)</option>
+                                <option value="LDP">Leukocyte-Depleted PRC (LDP)</option>
+                                <option value="SDP">Single Donor Platelets (SDP)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="componentUnits">Component Units</label>
+                            <input type="number" id="componentUnits" class="form-control" min="0" max="10" value="0">
+                        </div>
+                    </div>
+                    
+                    <!-- Component Information -->
+                    <div id="componentInfo" class="component-info">
+                        <!-- Information will be dynamically populated here -->
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="urgency">Urgency Level</label>
+                            <select id="urgency" class="form-control" required>
+                                <option value="">Select Urgency</option>
+                                <option value="high">High - Critical need</option>
+                                <option value="medium">Medium - Required soon</option>
+                                <option value="low">Low - Planned procedure</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="requiredDate">Required By</label>
+                            <input type="date" id="requiredDate" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospital">Hospital/Clinic Name</label>
+                        <input type="text" id="hospital" class="form-control" placeholder="Enter hospital name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hospitalAddress">Hospital Address</label>
+                        <input type="text" id="hospitalAddress" class="form-control" placeholder="Enter hospital address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactName">Contact Person Name</label>
+                        <input type="text" id="contactName" class="form-control" placeholder="Enter contact person name" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contactPhone">Contact Phone</label>
+                            <input type="tel" id="contactPhone" class="form-control" placeholder="Enter contact phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactRelation">Relationship to Patient</label>
+                            <select id="contactRelation" class="form-control" required>
+                                <option value="">Select Relationship</option>
+                                <option value="family">Family Member</option>
+                                <option value="friend">Friend</option>
+                                <option value="self">Self</option>
+                                <option value="medical-staff">Medical Staff</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Additional Details</label>
+                        <textarea id="description" class="form-control form-textarea" placeholder="Provide any additional details about the patient's condition, special requirements, etc."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelRequest">Cancel</button>
+                <button class="btn btn-primary" id="submitRequest">Submit Request</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="blood-banks.html">Blood Banks</a></li>
+                        <li><a href="blood-camps.html">Blood Camps</a></li>
+                        <li><a href="#">Blood Requests</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@donorhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Component information data
+        const componentInfo = {
+            "PRC": {
+                name: "Packed Red Cells (PRC)",
+                description: "Red blood cells with most of the plasma removed",
+                uses: "Anemia, blood loss, surgery",
+                shelfLife: "42 days at 1-6°C",
+                specialNotes: "Most commonly used blood component"
+            },
+            "FFP": {
+                name: "Fresh Frozen Plasma (FFP)",
+                description: "Plasma separated from whole blood and frozen",
+                uses: "Coagulation disorders, massive transfusion",
+                shelfLife: "1 year at -18°C or below",
+                specialNotes: "Contains all coagulation factors"
+            },
+            "PLT": {
+                name: "Platelets (PLT)",
+                description: "Platelet concentrate from whole blood or apheresis",
+                uses: "Thrombocytopenia, platelet dysfunction",
+                shelfLife: "5 days at 20-24°C with agitation",
+                specialNotes: "Must be stored at room temperature with constant agitation"
+            },
+            "CRYO": {
+                name: "Cryoprecipitate (CRYO)",
+                description: "Precipitate obtained from thawing FFP at 4°C",
+                uses: "Hemophilia, von Willebrand disease, fibrinogen deficiency",
+                shelfLife: "1 year at -18°C or below",
+                specialNotes: "Rich in factor VIII, fibrinogen, and von Willebrand factor"
+            },
+            "WB": {
+                name: "Whole Blood (WB)",
+                description: "Unseparated blood containing all components",
+                uses: "Massive transfusion, exchange transfusion",
+                shelfLife: "35 days at 1-6°C",
+                specialNotes: "Contains red cells, plasma, platelets, and coagulation factors"
+            },
+            "LDP": {
+                name: "Leukocyte-Depleted PRC (LDP)",
+                description: "Packed red cells with leukocytes removed",
+                uses: "Prevention of febrile reactions, CMV transmission",
+                shelfLife: "42 days at 1-6°C",
+                specialNotes: "Reduces risk of HLA alloimmunization"
+            },
+            "SDP": {
+                name: "Single Donor Platelets (SDP)",
+                description: "Platelets collected by apheresis from a single donor",
+                uses: "Patients requiring repeated transfusions",
+                shelfLife: "5 days at 20-24°C with agitation",
+                specialNotes: "Reduces exposure to multiple donors"
+            }
+        };
+
+        // Sample data for blood requests
+        const requestsData = [
+            {
+                id: 1,
+                patientName: "Michael Johnson",
+                bloodType: "O+",
+                unitsNeeded: 3,
+                component: "PRC",
+                componentUnits: 2,
+                urgency: "high",
+                hospital: "City General Hospital",
+                location: "New York",
+                requiredDate: "2023-10-18",
+                contactName: "Sarah Johnson",
+                contactPhone: "(555) 123-4567",
+                contactRelation: "family",
+                description: "Emergency surgery required due to accident injuries. Patient lost significant amount of blood. Need Packed Red Cells for transfusion.",
+                responses: 5,
+                donorsFound: 2,
+                posted: "2 hours ago"
+            },
+            {
+                id: 2,
+                patientName: "Emma Rodriguez",
+                bloodType: "B-",
+                unitsNeeded: 2,
+                component: "FFP",
+                componentUnits: 1,
+                urgency: "medium",
+                hospital: "Community Medical Center",
+                location: "Los Angeles",
+                requiredDate: "2023-10-20",
+                contactName: "Carlos Rodriguez",
+                contactPhone: "(555) 987-6543",
+                contactRelation: "family",
+                description: "Scheduled surgery for congenital heart condition. Need Fresh Frozen Plasma arranged before procedure.",
+                responses: 3,
+                donorsFound: 1,
+                posted: "5 hours ago"
+            },
+            {
+                id: 3,
+                patientName: "James Wilson",
+                bloodType: "A+",
+                unitsNeeded: 1,
+                component: "PLT",
+                componentUnits: 1,
+                urgency: "low",
+                hospital: "University Hospital",
+                location: "Chicago",
+                requiredDate: "2023-10-25",
+                contactName: "Dr. Lisa Chen",
+                contactPhone: "(555) 456-7890",
+                contactRelation: "medical-staff",
+                description: "Regular platelet transfusion for chemotherapy patient. Planning ahead for monthly requirement.",
+                responses: 2,
+                donorsFound: 1,
+                posted: "1 day ago"
+            },
+            {
+                id: 4,
+                patientName: "Sophia Martinez",
+                bloodType: "O-",
+                unitsNeeded: 4,
+                component: "WB",
+                componentUnits: 3,
+                urgency: "high",
+                hospital: "Children's Medical Center",
+                location: "Houston",
+                requiredDate: "2023-10-17",
+                contactName: "David Martinez",
+                contactPhone: "(555) 234-5678",
+                contactRelation: "family",
+                description: "Pediatric leukemia patient requiring immediate whole blood transfusion. Universal donor blood needed urgently.",
+                responses: 8,
+                donorsFound: 3,
+                posted: "3 hours ago"
+            },
+            {
+                id: 5,
+                patientName: "Robert Chen",
+                bloodType: "AB+",
+                unitsNeeded: 2,
+                component: "CRYO",
+                componentUnits: 1,
+                urgency: "medium",
+                hospital: "Memorial Hospital",
+                location: "New York",
+                requiredDate: "2023-10-22",
+                contactName: "Jennifer Chen",
+                contactPhone: "(555) 345-6789",
+                contactRelation: "family",
+                description: "Upcoming liver transplant surgery. Need cryoprecipitate to ensure blood availability for the procedure.",
+                responses: 1,
+                donorsFound: 0,
+                posted: "2 days ago"
+            },
+            {
+                id: 6,
+                patientName: "Lisa Thompson",
+                bloodType: "A-",
+                unitsNeeded: 1,
+                component: "LDP",
+                componentUnits: 1,
+                urgency: "low",
+                hospital: "Regional Medical Center",
+                location: "Chicago",
+                requiredDate: "2023-10-28",
+                contactName: "Lisa Thompson",
+                contactPhone: "(555) 567-8901",
+                contactRelation: "self",
+                description: "Routine transfusion for anemia with history of febrile reactions. Leukocyte-depleted blood required.",
+                responses: 0,
+                donorsFound: 0,
+                posted: "3 days ago"
+            },
+            {
+                id: 7,
+                patientName: "David Wilson",
+                bloodType: "O+",
+                unitsNeeded: 2,
+                component: "SDP",
+                componentUnits: 1,
+                urgency: "medium",
+                hospital: "Metropolitan Hospital",
+                location: "Los Angeles",
+                requiredDate: "2023-10-21",
+                contactName: "Dr. Maria Garcia",
+                contactPhone: "(555) 678-9012",
+                contactRelation: "medical-staff",
+                description: "Patient with platelet refractoriness requires single donor platelets for upcoming procedure.",
+                responses: 4,
+                donorsFound: 2,
+                posted: "6 hours ago"
+            }
+        ];
+
+        // DOM Elements
+        const requestsContainer = document.getElementById('requestsContainer');
+        const emptyState = document.getElementById('emptyState');
+        const requestsCount = document.getElementById('requestsCount');
+        const requestModal = document.getElementById('requestModal');
+        const newRequestBtn = document.getElementById('newRequestBtn');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelRequest = document.getElementById('cancelRequest');
+        const submitRequest = document.getElementById('submitRequest');
+        const requestForm = document.getElementById('requestForm');
+        const bloodComponentSelect = document.getElementById('bloodComponent');
+        const componentInfoDiv = document.getElementById('componentInfo');
+        const componentUnitsInput = document.getElementById('componentUnits');
+        const requiredDateInput = document.getElementById('requiredDate');
+        const searchInput = document.getElementById('searchInput');
+
+        // Set default date to tomorrow
+        function setDefaultDate() {
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            requiredDateInput.valueAsDate = tomorrow;
+        }
+
+        // Load and display blood requests from API
+        async function loadAndDisplayRequests() {
+            try {
+                // Get current filter values
+                const filters = {
+                    bloodType: document.getElementById('filterBloodType').value,
+                    component: document.getElementById('filterComponent').value,
+                    urgency: document.getElementById('filterUrgency').value,
+                    city: document.getElementById('filterLocation').value,
+                    search: document.getElementById('searchInput').value.trim()
+                };
+                
+                // Remove empty filters
+                Object.keys(filters).forEach(key => {
+                    if (!filters[key]) delete filters[key];
+                });
+                
+                // Load requests from API
+                const requests = await loadBloodRequests(filters);
+                
+                // Display the requests
+                displayBloodRequests(requests);
+                
+            } catch (error) {
+                console.error('Error loading blood requests:', error);
+                // Show empty state on error
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('requestsCount').textContent = '0';
+            }
+        }
+
+        // Format date to readable format
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString(undefined, options);
+        }
+
+        // Respond to a blood request
+        function respondToRequest(requestId) {
+            const request = requestsData.find(r => r.id == requestId);
+            if (!request) return;
+            
+            alert(`Thank you for your willingness to help! You are responding to ${request.patientName}'s request for ${request.bloodType} blood.\n\nWe will connect you with ${request.contactName} at ${request.contactPhone} to coordinate the donation.`);
+        }
+
+        // Open new request modal
+        function openRequestModal() {
+            // Set default date to tomorrow
+            setDefaultDate();
+            
+            requestModal.style.display = 'flex';
+        }
+
+        // Close request modal
+        function closeRequestModal() {
+            requestModal.style.display = 'none';
+            requestForm.reset();
+            setDefaultDate();
+            componentInfoDiv.classList.remove('active');
+            componentInfoDiv.innerHTML = '';
+            componentUnitsInput.disabled = true;
+            componentUnitsInput.value = 0;
+        }
+
+        // Update component information when selection changes
+        bloodComponentSelect.addEventListener('change', function() {
+            const selectedComponent = this.value;
+            
+            if (selectedComponent && componentInfo[selectedComponent]) {
+                const info = componentInfo[selectedComponent];
+                componentInfoDiv.innerHTML = `
+                    <h4>${info.name}</h4>
+                    <p><i class="fas fa-info-circle info-icon"></i> ${info.description}</p>
+                    <p><i class="fas fa-stethoscope info-icon"></i> <strong>Common Uses:</strong> ${info.uses}</p>
+                    <p><i class="fas fa-clock info-icon"></i> <strong>Shelf Life:</strong> ${info.shelfLife}</p>
+                    <p><i class="fas fa-exclamation-triangle info-icon"></i> <strong>Special Notes:</strong> ${info.specialNotes}</p>
+                `;
+                componentInfoDiv.classList.add('active');
+                
+                // Enable component units input
+                componentUnitsInput.disabled = false;
+                componentUnitsInput.min = 1;
+            } else {
+                componentInfoDiv.classList.remove('active');
+                componentInfoDiv.innerHTML = '';
+                
+                // Disable component units input
+                componentUnitsInput.disabled = true;
+                componentUnitsInput.value = 0;
+            }
+        });
+
+        // Form submission
+        submitRequest.addEventListener('click', async () => {
+            if (requestForm.checkValidity()) {
+                // Disable submit button and show loading state
+                submitRequest.disabled = true;
+                submitRequest.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+                
+                try {
+                    // Collect form data
+                    const formData = collectRequestFormData();
+                    
+                    // Submit to API
+                    const response = await submitBloodRequest(formData);
+                    
+                    // Show success message
+                    const bloodType = document.getElementById('bloodType').value;
+                    const patientName = document.getElementById('patientName').value;
+                    const bloodComponent = document.getElementById('bloodComponent').value;
+                    const componentUnits = document.getElementById('componentUnits').value;
+                    
+                    let message = `Blood Request Submitted Successfully!\n\n`;
+                    message += `Patient: ${patientName}\n`;
+                    message += `Blood Type: ${bloodType}\n`;
+                    message += `Units Needed: ${formData.unitsNeeded}\n`;
+                    
+                    if (bloodComponent && componentUnits > 0) {
+                        message += `Blood Component: ${componentInfo[bloodComponent].name}\n`;
+                        message += `Component Units: ${componentUnits}\n`;
+                    }
+                    
+                    message += `Urgency: ${document.getElementById('urgency').options[document.getElementById('urgency').selectedIndex].text}\n`;
+                    message += `Required By: ${new Date(formData.requiredDate).toLocaleDateString()}`;
+                    
+                    alert(message);
+                    
+                    // Close modal and clear form
+                    closeRequestModal();
+                    
+                    // Reload blood requests to show the new one
+                    await loadAndDisplayRequests();
+                    
+                } catch (error) {
+                    // Show error message
+                    const errorMessage = handleApiError(error);
+                    alert(`Failed to submit blood request:\n\n${errorMessage}\n\nPlease try again.`);
+                    
+                    // Keep form data so user can retry
+                } finally {
+                    // Re-enable submit button
+                    submitRequest.disabled = false;
+                    submitRequest.innerHTML = 'Submit Request';
+                }
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Initialize - Load requests from API on page load
+        loadAndDisplayRequests();
+        setDefaultDate();
+
+        // Modal events
+        newRequestBtn.addEventListener('click', openRequestModal);
+        
+        // Empty state button (if exists)
+        const newRequestBtnEmpty = document.getElementById('newRequestBtnEmpty');
+        if (newRequestBtnEmpty) {
+            newRequestBtnEmpty.addEventListener('click', openRequestModal);
+        }
+        
+        closeModal.addEventListener('click', closeRequestModal);
+        cancelRequest.addEventListener('click', closeRequestModal);
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === requestModal) {
+                closeRequestModal();
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = 
+                navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Search functionality - reload requests with search filter
+        searchInput.addEventListener('input', (e) => {
+            // Debounce search to avoid too many API calls
+            clearTimeout(window.searchTimeout);
+            window.searchTimeout = setTimeout(() => {
+                loadAndDisplayRequests();
+            }, 500);
+        });
+
+        // Filter functionality - reload requests when filters change
+        document.querySelectorAll('.filter-group select').forEach(select => {
+            select.addEventListener('change', () => {
+                loadAndDisplayRequests();
+            });
+        });
+    </script>
+    
+    <!-- API Integration Scripts -->
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/blood-request-api.js"></script>
+    
+    <!-- Other Scripts -->
+    <script src="../js/frontend-api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+    
+    <script>
+    // Protect this page - require login
+    if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') !== 'true') {
+        alert('🔒 Please login first to post blood requests');
+        window.location.href = '../index.html';
+    } else {
+        // Show logout button
+        document.getElementById('logoutBtn').style.display = 'inline-block';
+        
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userType');
+                alert('Logged out successfully!');
+                window.location.href = '../index.html';
+            }
+        });
+        
+        // Load and display blood requests on page load
+        console.log('🔄 Loading blood requests from database...');
+        
+        async function loadDisplayRequests() {
+            try {
+                const requests = await loadBloodRequests();
+                console.log('✅ Loaded', requests.length, 'blood requests');
+                console.log('📦 Requests:', requests);
+                displayBloodRequests(requests);
+            } catch (error) {
+                console.error('❌ Error loading blood requests:', error);
+                showErrorMessage('Failed to load blood requests. Please refresh the page.');
+            }
+        }
+        
+        // Initial load
+        loadDisplayRequests();
+        
+        // Reload when filters change
+        document.querySelectorAll('.filter-select').forEach(select => {
+            select.addEventListener('change', async () => {
+                const filters = {
+                    bloodType: document.getElementById('bloodTypeFilter')?.value || '',
+                    component: document.getElementById('componentFilter')?.value || '',
+                    urgency: document.getElementById('urgencyFilter')?.value || '',
+                    city: document.getElementById('locationFilter')?.value || ''
+                };
+                
+                console.log('🔍 Filtering with:', filters);
+                const requests = await loadBloodRequests(filters);
+                displayBloodRequests(requests);
+            });
+        });
+    }
+    </script>
+</body>
+</html>

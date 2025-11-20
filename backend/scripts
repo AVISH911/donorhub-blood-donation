@@ -1,0 +1,216 @@
+// Script to seed blood bank data
+require('dotenv').config();
+const mongoose = require('mongoose');
+
+// Blood Bank Schema
+const BloodBankSchema = new mongoose.Schema({
+  name: String,
+  address: String,
+  city: String,
+  phone: String,
+  email: String,
+  bloodStock: Object
+});
+
+const BloodBank = mongoose.model('BloodBank', BloodBankSchema);
+
+// Sample blood bank data
+const sampleBloodBanks = [
+  {
+    name: 'City General Hospital Blood Bank',
+    address: '123 Main Street',
+    city: 'Mumbai',
+    phone: '+91 22 1234 5678',
+    email: 'bloodbank@citygeneral.com',
+    bloodStock: {
+      'A+': 45,
+      'A-': 12,
+      'B+': 38,
+      'B-': 8,
+      'O+': 52,
+      'O-': 15,
+      'AB+': 20,
+      'AB-': 5
+    }
+  },
+  {
+    name: 'Red Cross Blood Center',
+    address: '456 Park Avenue',
+    city: 'Delhi',
+    phone: '+91 11 2345 6789',
+    email: 'info@redcrossblood.org',
+    bloodStock: {
+      'A+': 30,
+      'A-': 8,
+      'B+': 25,
+      'B-': 6,
+      'O+': 40,
+      'O-': 10,
+      'AB+': 15,
+      'AB-': 3
+    }
+  },
+  {
+    name: 'Apollo Hospital Blood Bank',
+    address: '789 Health Road',
+    city: 'Bangalore',
+    phone: '+91 80 3456 7890',
+    email: 'bloodbank@apollo.com',
+    bloodStock: {
+      'A+': 50,
+      'A-': 15,
+      'B+': 42,
+      'B-': 10,
+      'O+': 60,
+      'O-': 18,
+      'AB+': 25,
+      'AB-': 7
+    }
+  },
+  {
+    name: 'Fortis Healthcare Blood Center',
+    address: '321 Medical Plaza',
+    city: 'Pune',
+    phone: '+91 20 4567 8901',
+    email: 'blood@fortis.in',
+    bloodStock: {
+      'A+': 35,
+      'A-': 9,
+      'B+': 28,
+      'B-': 7,
+      'O+': 45,
+      'O-': 12,
+      'AB+': 18,
+      'AB-': 4
+    }
+  },
+  {
+    name: 'Max Hospital Blood Bank',
+    address: '654 Care Street',
+    city: 'Chennai',
+    phone: '+91 44 5678 9012',
+    email: 'bloodbank@maxhospital.com',
+    bloodStock: {
+      'A+': 40,
+      'A-': 11,
+      'B+': 33,
+      'B-': 8,
+      'O+': 48,
+      'O-': 14,
+      'AB+': 22,
+      'AB-': 6
+    }
+  },
+  {
+    name: 'Lilavati Hospital Blood Center',
+    address: '987 Hospital Lane',
+    city: 'Mumbai',
+    phone: '+91 22 6789 0123',
+    email: 'blood@lilavati.com',
+    bloodStock: {
+      'A+': 38,
+      'A-': 10,
+      'B+': 30,
+      'B-': 7,
+      'O+': 42,
+      'O-': 13,
+      'AB+': 19,
+      'AB-': 5
+    }
+  },
+  {
+    name: 'AIIMS Blood Bank',
+    address: '147 Medical Campus',
+    city: 'Delhi',
+    phone: '+91 11 7890 1234',
+    email: 'bloodbank@aiims.edu',
+    bloodStock: {
+      'A+': 55,
+      'A-': 16,
+      'B+': 45,
+      'B-': 11,
+      'O+': 65,
+      'O-': 20,
+      'AB+': 28,
+      'AB-': 8
+    }
+  },
+  {
+    name: 'Manipal Hospital Blood Center',
+    address: '258 Wellness Drive',
+    city: 'Bangalore',
+    phone: '+91 80 8901 2345',
+    email: 'blood@manipal.edu',
+    bloodStock: {
+      'A+': 42,
+      'A-': 12,
+      'B+': 35,
+      'B-': 9,
+      'O+': 50,
+      'O-': 15,
+      'AB+': 21,
+      'AB-': 6
+    }
+  }
+];
+
+async function seedBloodBanks() {
+  try {
+    // Connect to MongoDB
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/donorhub');
+    console.log('Connected to MongoDB\n');
+    
+    // Check if blood banks already exist
+    const existingCount = await BloodBank.countDocuments();
+    
+    if (existingCount > 0) {
+      console.log(`Found ${existingCount} existing blood banks.`);
+      const readline = require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
+      
+      readline.question('Do you want to delete existing data and reseed? (yes/no): ', async (answer) => {
+        if (answer.toLowerCase() === 'yes' || answer.toLowerCase() === 'y') {
+          await BloodBank.deleteMany({});
+          console.log('Deleted existing blood banks.\n');
+          await insertBloodBanks();
+        } else {
+          console.log('Keeping existing data. Adding new blood banks...\n');
+          await insertBloodBanks();
+        }
+        readline.close();
+        await mongoose.connection.close();
+        process.exit(0);
+      });
+    } else {
+      await insertBloodBanks();
+      await mongoose.connection.close();
+      process.exit(0);
+    }
+    
+  } catch (error) {
+    console.error('Error:', error.message);
+    process.exit(1);
+  }
+}
+
+async function insertBloodBanks() {
+  try {
+    const result = await BloodBank.insertMany(sampleBloodBanks);
+    console.log(`✓ Successfully added ${result.length} blood banks:\n`);
+    
+    result.forEach((bank, index) => {
+      console.log(`${index + 1}. ${bank.name}`);
+      console.log(`   City: ${bank.city}`);
+      console.log(`   Phone: ${bank.phone}`);
+      console.log('');
+    });
+    
+    console.log('Blood banks seeded successfully!');
+  } catch (error) {
+    console.error('Error inserting blood banks:', error.message);
+  }
+}
+
+seedBloodBanks();

@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Education - DonorHub</title>
+        <link rel="stylesheet" href="../css/education.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="../css/custom-alerts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html" class="active">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Blood Donation Education</h2>
+            <p>Learn everything you need to know about blood donation - from eligibility to the donation process and its impact.</p>
+            <div class="hero-search">
+                <input type="text" id="educationSearchInput" placeholder="Search for information...">
+                <button id="educationSearchBtn"><i class="fas fa-search"></i> Search</button>
+            </div>
+            
+            <!-- Search Results Container -->
+            <div id="searchResultsContainer" style="display: none; margin-top: 30px; background: white; border-radius: 10px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h3 style="margin-bottom: 15px; color: var(--primary);">Search Results</h3>
+                <div id="searchResults"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Navigation -->
+    <section class="education-nav">
+        <div class="container education-nav-container">
+            <div class="education-nav-item active" data-target="process">Donation Process</div>
+            <div class="education-nav-item" data-target="eligibility">Eligibility</div>
+            <div class="education-nav-item" data-target="faq">FAQs</div>
+            <div class="education-nav-item" data-target="blood-types">Blood Types</div>
+            <div class="education-nav-item" data-target="myths-facts">Myths & Facts</div>
+            <div class="education-nav-item" data-target="resources">Resources</div>
+        </div>
+    </section>
+
+    <!-- Education Content -->
+    <section class="education-content">
+        <div class="container">
+            <!-- Donation Process Section -->
+            <div class="education-section active" id="process-section">
+                <div class="section-title">
+                    <h2>Blood Donation Process</h2>
+                    <p>Learn what to expect when you donate blood</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <div class="step-number">1</div>
+                        <h3>Registration</h3>
+                        <p>You'll complete a donor registration form with your personal information and medical history.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-stethoscope"></i>
+                        </div>
+                        <div class="step-number">2</div>
+                        <h3>Health Screening</h3>
+                        <p>A quick health check including temperature, pulse, blood pressure, and hemoglobin level.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="step-number">3</div>
+                        <h3>Donation</h3>
+                        <p>The actual donation takes about 8-10 minutes during which approximately one pint of blood is collected.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-cookie-bite"></i>
+                        </div>
+                        <div class="step-number">4</div>
+                        <h3>Refreshment</h3>
+                        <p>After donating, you'll enjoy refreshments to help your body adjust to the slight decrease in fluid.</p>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>After Donation Care</h2>
+                    <p>Important tips for your recovery after donating blood</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-glass-whiskey"></i>
+                        </div>
+                        <h3>Hydrate</h3>
+                        <p>Drink plenty of fluids over the next 24-48 hours to help your body replenish fluids.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Eat Well</h3>
+                        <p>Consume iron-rich foods to help your body rebuild its iron stores.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <h3>Avoid Strenuous Activity</h3>
+                        <p>Avoid heavy lifting or vigorous exercise for the rest of the day.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Eligibility Section -->
+            <div class="education-section" id="eligibility-section">
+                <div class="section-title">
+                    <h2>Donor Eligibility</h2>
+                    <p>Basic requirements to become a blood donor</p>
+                </div>
+                
+                <div class="eligibility-container">
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-check-circle"></i> General Requirements</h3>
+                        <ul class="eligibility-list">
+                            <li>Be in good general health and feeling well</li>
+                            <li>Be at least 17 years old in most states</li>
+                            <li>Weigh at least 110 pounds (50 kg)</li>
+                            <li>Not have donated blood in the last 56 days</li>
+                            <li>Have a valid ID with photo or signature</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-times-circle"></i> Temporary Restrictions</h3>
+                        <ul class="eligibility-list restrictions">
+                            <li>Cold or flu in the last 7 days</li>
+                            <li>Pregnancy (wait 6 weeks after delivery)</li>
+                            <li>Recent tattoo or piercing (wait 3-12 months)</li>
+                            <li>Certain medications (check with staff)</li>
+                            <li>Travel to malaria-risk areas (wait 3 months)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-ban"></i> Permanent Restrictions</h3>
+                        <ul class="eligibility-list restrictions">
+                            <li>HIV/AIDS infection</li>
+                            <li>Hepatitis B or C infection</li>
+                            <li>Babesiosis or Chagas disease</li>
+                            <li>Certain types of cancer</li>
+                            <li>Creutzfeldt-Jakob Disease (CJD)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>Health Conditions & Donation</h2>
+                    <p>How specific health conditions affect your ability to donate</p>
+                </div>
+                
+                <div class="eligibility-container">
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-heart"></i> Heart & Lung Conditions</h3>
+                        <p>Most heart conditions don't prevent donation if well-controlled. Asthma is generally acceptable if you're not having an attack.</p>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-pills"></i> Medications</h3>
+                        <p>Most medications won't prevent donation. Blood thinners, Accutane, and some others may require a waiting period.</p>
+                    </div>
+                    
+                    <div class="eligibility-card">
+                        <h3><i class="fas fa-procedures"></i> Surgery & Procedures</h3>
+                        <p>Wait until fully recovered from surgery. For minor procedures without complications, wait 24 hours.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Section -->
+            <div class="education-section" id="faq-section">
+                <div class="section-title">
+                    <h2>Frequently Asked Questions</h2>
+                    <p>Common questions about blood donation</p>
+                </div>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How long does the entire donation process take?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The entire process, from registration to post-donation refreshments, takes about one hour. The actual blood donation only takes 8-10 minutes.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is donating blood safe?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, donating blood is very safe. New, sterile disposable equipment is used for each donor, so there's no risk of contracting a bloodborne infection.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How often can I donate blood?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can donate whole blood every 56 days (8 weeks). Platelet donations can be made more frequently - up to 24 times per year.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Does donating blood hurt?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You may feel a slight sting when the needle is inserted, but it only lasts a second. Most donors report little to no discomfort during donation.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How much blood is taken during donation?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For a whole blood donation, approximately one pint (about 470ml) is collected. Your body has about 10 pints of blood and replaces the donated fluid within 24 hours.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What should I do before donating?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Eat a healthy meal and drink plenty of fluids before your donation. Avoid fatty foods, as they can affect blood tests. Get a good night's sleep the night before.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Blood Types Section -->
+            <div class="education-section" id="blood-types-section">
+                <div class="section-title">
+                    <h2>Blood Types & Compatibility</h2>
+                    <p>Understanding different blood types and who can receive your donation</p>
+                </div>
+                
+                <div class="blood-types-container">
+                    <div class="blood-type-card">
+                        <div class="blood-type">A+</div>
+                        <div class="blood-type-info">34% of population</div>
+                        <p>Can donate to: A+, AB+</p>
+                        <p>Can receive from: A+, A-, O+, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">A-</div>
+                        <div class="blood-type-info">6% of population</div>
+                        <p>Can donate to: A+, A-, AB+, AB-</p>
+                        <p>Can receive from: A-, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">B+</div>
+                        <div class="blood-type-info">9% of population</div>
+                        <p>Can donate to: B+, AB+</p>
+                        <p>Can receive from: B+, B-, O+, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">B-</div>
+                        <div class="blood-type-info">2% of population</div>
+                        <p>Can donate to: B+, B-, AB+, AB-</p>
+                        <p>Can receive from: B-, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">AB+</div>
+                        <div class="blood-type-info">3% of population</div>
+                        <p>Can donate to: AB+</p>
+                        <p>Can receive from: Everyone</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">AB-</div>
+                        <div class="blood-type-info">1% of population</div>
+                        <p>Can donate to: AB+, AB-</p>
+                        <p>Can receive from: AB-, A-, B-, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">O+</div>
+                        <div class="blood-type-info">38% of population</div>
+                        <p>Can donate to: O+, A+, B+, AB+</p>
+                        <p>Can receive from: O+, O-</p>
+                    </div>
+                    
+                    <div class="blood-type-card">
+                        <div class="blood-type">O-</div>
+                        <div class="blood-type-info">7% of population</div>
+                        <p>Can donate to: Everyone</p>
+                        <p>Can receive from: O-</p>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>Universal Donors & Recipients</h2>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-user-check"></i>
+                        </div>
+                        <h3>Universal Donor</h3>
+                        <p><strong>O- blood type</strong> is the universal donor because it can be given to patients of any blood type. This makes it especially valuable in emergency situations.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-user-injured"></i>
+                        </div>
+                        <h3>Universal Recipient</h3>
+                        <p><strong>AB+ blood type</strong> is the universal recipient because people with this blood type can receive red blood cells from any blood type.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Myths & Facts Section -->
+            <div class="education-section" id="myths-facts-section">
+                <div class="section-title">
+                    <h2>Myths & Facts About Blood Donation</h2>
+                    <p>Separating fact from fiction</p>
+                </div>
+                
+                <div class="myths-facts-container">
+                    <div class="myth-fact-card myth">
+                        <h3>Donating blood is painful</h3>
+                        <p>While you may feel a brief pinch when the needle is inserted, most donors report little to no pain during the donation process.</p>
+                    </div>
+                    
+                    <div class="myth-fact-card fact">
+                        <h3>You can donate if you have diabetes</h3>
+                        <p>Yes, as long as your diabetes is well-controlled with medication or diet and you are otherwise healthy.</p>
+                    </div>
+                    
+                    <div class="myth-fact-card myth">
+                        <h3>Donating blood will make you weak</h3>
+                        <p>Your body replaces the fluid lost during donation within 24 hours and red blood cells within 4-6 weeks. Most people feel fine after donating.</p>
+                    </div>
+                    
+                    <div class="myth-fact-card fact">
+                        <h3>You need to know your blood type to donate</h3>
+                        <p>No, you don't need to know your blood type beforehand. Your blood will be typed after donation.</p>
+                    </div>
+                    
+                    <div class="myth-fact-card myth">
+                        <h3>Vegetarians can't donate blood</h3>
+                        <p>Vegetarians can donate blood as long as they meet the hemoglobin requirements. Iron from plant sources is sufficient.</p>
+                    </div>
+                    
+                    <div class="myth-fact-card fact">
+                        <h3>One donation can save up to three lives</h3>
+                        <p>Yes, blood can be separated into red cells, plasma, and platelets, each helping different patients.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resources Section -->
+            <div class="education-section" id="resources-section">
+                <div class="section-title">
+                    <h2>Additional Resources</h2>
+                    <p>Further reading and helpful materials</p>
+                </div>
+                
+                <div class="resources-container">
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Blood Donation Guide</h3>
+                            <p>Comprehensive guide covering everything from preparation to recovery after donation.</p>
+                            <a href="#" class="resource-link">Download PDF <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Educational Videos</h3>
+                            <p>Watch videos explaining the donation process and hearing stories from donors and recipients.</p>
+                            <a href="#" class="resource-link">Watch Now <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="resource-card">
+                        <div class="resource-image">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="resource-content">
+                            <h3>Blood Supply Statistics</h3>
+                            <p>Current data on blood supply levels and usage patterns in your region.</p>
+                            <a href="#" class="resource-link">View Statistics <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h2>Contact Information</h2>
+                    <p>Get in touch with our education team</p>
+                </div>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Phone Support</h3>
+                        <p>Call our education hotline at <strong>1-800-DONORHUB</strong> for answers to your blood donation questions.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3>Email Us</h3>
+                        <p>Send your questions to <strong>education@donorhub.com</strong> and we'll respond within 24 hours.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Schedule a Talk</h3>
+                        <p>Request a blood donation education session for your school, workplace, or community group.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="find_donor.html">Find Donors</a></li>
+                        <li><a href="donor.html">Register as Donor</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@donorhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation between education sections
+        document.addEventListener('DOMContentLoaded', function() {
+            const navItems = document.querySelectorAll('.education-nav-item');
+            const sections = document.querySelectorAll('.education-section');
+            
+            // Set first section as active by default
+            if (sections.length > 0) {
+                sections[0].classList.add('active');
+            }
+            
+            // Handle navigation clicks
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target section
+                    sections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === `${target}-section`) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // FAQ accordion functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', function() {
+                    // Close all other FAQ items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Educational content database for searching
+            const educationalContent = [
+                { title: "Who Can Donate Blood?", category: "Eligibility", content: "Most healthy adults aged 18-65 can donate blood. You must weigh at least 50kg and be in good health." },
+                { title: "Blood Donation Process", category: "Process", content: "The donation process takes about 10-15 minutes. It includes registration, health screening, donation, and refreshments." },
+                { title: "How Often Can I Donate?", category: "FAQ", content: "You can donate whole blood every 56 days (8 weeks). Platelet donors can donate every 7 days, up to 24 times per year." },
+                { title: "Blood Types Compatibility", category: "Blood Types", content: "O- is the universal donor. AB+ is the universal recipient. Know your blood type to help save lives." },
+                { title: "Benefits of Blood Donation", category: "Facts", content: "Donating blood helps save lives, reduces iron levels, and may lower risk of heart disease." },
+                { title: "Preparation Before Donation", category: "Process", content: "Eat iron-rich foods, drink plenty of water, get good sleep, and avoid fatty foods before donating." },
+                { title: "Side Effects", category: "FAQ", content: "Minor side effects may include dizziness, bruising, or fatigue. These are temporary and rare." },
+                { title: "Myth: Donation Weakens You", category: "Myths", content: "FALSE: Your body replaces the donated blood within 24-48 hours. You won't feel weak if you follow post-donation care." },
+                { title: "Myth: Donation is Painful", category: "Myths", content: "FALSE: You may feel a slight pinch when the needle is inserted, but the process is generally painless." },
+                { title: "What Happens to Donated Blood?", category: "Process", content: "Blood is tested, separated into components (red cells, plasma, platelets), and stored for patients in need." },
+                { title: "Eligibility Restrictions", category: "Eligibility", content: "You cannot donate if you have certain infections, are pregnant, or have recently gotten a tattoo (varies by location)." },
+                { title: "Emergency Blood Needs", category: "Facts", content: "Every 2 seconds, someone needs blood. One donation can save up to 3 lives." },
+                { title: "Rare Blood Types", category: "Blood Types", content: "AB- and B- are among the rarest blood types. Donors with rare types are especially valuable." },
+                { title: "Post-Donation Care", category: "Process", content: "Rest for 10-15 minutes, drink fluids, eat snacks, avoid heavy lifting for 24 hours." },
+                { title: "Blood Components", category: "Blood Types", content: "Blood consists of red cells, white cells, platelets, and plasma. Each component helps different patients." }
+            ];
+
+            // Search functionality
+            const searchInput = document.getElementById('educationSearchInput');
+            const searchButton = document.getElementById('educationSearchBtn');
+            const searchResultsContainer = document.getElementById('searchResultsContainer');
+            const searchResults = document.getElementById('searchResults');
+            
+            searchButton.addEventListener('click', function() {
+                performSearch();
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Clear search when input is empty
+            searchInput.addEventListener('input', function() {
+                if (searchInput.value.trim() === '') {
+                    searchResultsContainer.style.display = 'none';
+                }
+            });
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (!searchTerm) {
+                    searchResultsContainer.style.display = 'none';
+                    return;
+                }
+                
+                // Search through educational content
+                const results = educationalContent.filter(item => 
+                    item.title.toLowerCase().includes(searchTerm) ||
+                    item.content.toLowerCase().includes(searchTerm) ||
+                    item.category.toLowerCase().includes(searchTerm)
+                );
+                
+                // Display results
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(result => `
+                        <div style="padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.3s;" 
+                             onmouseover="this.style.background='#f9f9f9'" 
+                             onmouseout="this.style.background='white'">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                                <h4 style="margin: 0; color: var(--primary); font-size: 16px;">${result.title}</h4>
+                                <span style="background: var(--primary); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px;">${result.category}</span>
+                            </div>
+                            <p style="margin: 0; color: #666; font-size: 14px; line-height: 1.6;">${result.content}</p>
+                        </div>
+                    `).join('');
+                    searchResultsContainer.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = `
+                        <div style="text-align: center; padding: 30px; color: #999;">
+                            <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px;"></i>
+                            <p style="font-size: 16px;">No results found for "${searchTerm}"</p>
+                            <p style="font-size: 14px;">Try different keywords like "eligibility", "process", "blood types", or "myths"</p>
+                        </div>
+                    `;
+                    searchResultsContainer.style.display = 'block';
+                }
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="../js/custom-alerts.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+<script>
+// Handle auth buttons visibility and logout functionality
+if (localStorage.getItem('isLoggedIn') === 'true') {
+    // User is logged in - hide login/register, show logout
+    document.getElementById('loginBtn').style.display = 'none';
+    document.getElementById('registerBtn').style.display = 'none';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+} else {
+    // User is not logged in - show login/register, hide logout
+    document.getElementById('loginBtn').style.display = 'inline-block';
+    document.getElementById('registerBtn').style.display = 'inline-block';
+    document.getElementById('logoutBtn').style.display = 'none';
+}
+
+// Logout functionality with custom alerts
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    const confirmed = await customConfirm('Are you sure you want to logout?');
+    if (confirmed) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('user');
+        await customAlert('Logged out successfully!');
+        window.location.href = 'index.html';
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - DonorHub</title>
+    <link rel="stylesheet" href="../css/about.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="../css/custom-alerts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html" class="active">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Connecting Hearts, Saving Lives</h2>
+            <p>DonorHub is more than a platform, It's a mission driven by a simple belief: no one should lose their life waiting for blood.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="window.location.href='donor.html'">Become a Donor</button>
+                <button class="btn btn-outline" onclick="window.location.href='education.html'">Learn More</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Intro -->
+    <section class="about-intro">
+        <div class="container">
+            <div class="about-container">
+                <div class="about-content">
+                    <div class="section-title">
+                        <h2>Our Story</h2>
+                        <p>How DonorHub began and our journey so far</p>
+                    </div>
+                    <p>DonorHub wasn't born in a boardroom, It was born from a shared realization. We (Avish, Sahil, and Yash) witnessed the anxiety and chaos families face when searching for a blood donor during an emergency. We saw a critical problem: <em>in a world of instant connectivity, why is it so hard to find a blood donor?</em></p>
+                    <p>This shared concern ignited a spark. We combined our diverse skills and shared passion for technology to build a solution. What started as a project to address a real-world problem has now evolved into a comprehensive platform connecting donors, recipients, and blood banks in real-time.</p>
+                    <p>DonorHub represents our dedication to using technology for social good. Every line of code is written with the goal of creating a tangible, positive impact on society and saving lives.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Blood donation team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="container">
+            <div class="section-title" style="text-align: center;">
+                <h2>Our Mission & Vision</h2>
+                <p>What drives us forward every day</p>
+            </div>
+            
+            <div class="mv-container">
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Our Mission</h3>
+                    <p>To eliminate blood shortages by creating a reliable network of voluntary blood donors and facilitating timely blood availability during emergencies through our comprehensive digital platform.</p>
+                </div>
+                
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Our Vision</h3>
+                    <p>A world where no one dies due to unavailability of blood, with a self-sufficient network of regular voluntary donors supporting the healthcare system and creating a culture of regular blood donation.</p>
+                </div>
+                
+                <div class="mv-card">
+                    <div class="mv-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Our Technology</h3>
+                    <p>Built with modern MERN stack technology, DonorHub features real-time notifications, secure authentication, and a responsive design that works seamlessly across all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <div class="section-title" style="text-align: center;">
+                <h2>Our Values</h2>
+                <p>The principles that guide everything we do</p>
+            </div>
+            
+            <div class="values-container">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Compassion</h3>
+                    <p>We never forget that every notification, every request, represents a human life. We approach every situation with empathy and understanding.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Innovation</h3>
+                    <p>We continuously seek innovative solutions to make blood donation more accessible, efficient, and impactful through cutting-edge technology.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Integrity</h3>
+                    <p>We build trust through transparency, security, and respect for our users' data and privacy with robust security measures.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Community</h3>
+                    <p>We believe that together, we are stronger. DonorHub is powered by the collective effort of every donor, recipient, and partner.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Excellence</h3>
+                    <p>We strive for excellence in every aspect of our service, from donor registration to final connection between donors and recipients.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3>Dedication</h3>
+                    <p>As developers, we're committed to maintaining and improving the platform, ensuring it remains reliable and effective for all users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+   <!-- Team Section -->
+<section class="team">
+    <div class="container">
+        <div class="section-title" style="text-align: center;">
+            <h2>Meet Our Team</h2>
+            <p>The passionate developers behind DonorHub</p>
+        </div>
+        
+        <div class="team-container">
+            <div class="team-member">
+                <div class="member-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Avish</h3>
+                    <div class="member-role">Full-Stack Developer & System Architect</div>
+                    <p>As the technical backbone of DonorHub, Avish engineered the entire platform infrastructure with expertise in:</p>
+                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Backend Development:</strong> Node.js & Express.js server architecture</li>
+                        <li><strong>Database Design:</strong> MongoDB schema design and optimization</li>
+                        <li><strong>API Development:</strong> RESTful API endpoints and integration</li>
+                        <li><strong>Email System:</strong> OTP verification and notification services</li>
+                        <li><strong>Frontend Pages:</strong> HTML structure and page routing</li>
+                        <li><strong>Business Logic:</strong> Core application functionality and workflows</li>
+                        <li><strong>Market Research:</strong> Analysis of existing blood donation systems</li>
+                    </ul>
+                    <p>His comprehensive approach ensured a robust, scalable, and efficient platform from database to user interface.</p>
+                    <div class="member-social">
+                        <a href="https://www.linkedin.com/in/avish-ramteke-9ab198329/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/AVISH911"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Sahil</h3>
+                    <div class="member-role">Authentication Specialist & Security Lead</div>
+                    <p>Sahil implemented the comprehensive security framework that protects DonorHub users and their data:</p>
+                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                        <li><strong>User Authentication:</strong> Secure login/registration system</li>
+                        <li><strong>Session Management:</strong> Persistent user sessions across pages</li>
+                        <li><strong>Route Protection:</strong> Page access control and authorization</li>
+                        <li><strong>Security Protocols:</strong> Data encryption and protection measures</li>
+                        <li><strong>Access Control:</strong> Role-based permissions and restrictions</li>
+                    </ul>
+                    <p>His work ensures that user data remains secure while providing seamless navigation across the platform.</p>
+                    <div class="member-social">
+                        <a href="https://www.linkedin.com/in/sahilchainani/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/sahilchainani08"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-member">
+                <div class="member-image">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="member-info">
+                    <h3>Yash</h3>
+                    <div class="member-role">Project Visionary & Research Lead</div>
+                    <p>Yash provided the creative direction and foundational research that shaped DonorHub:</p>
+                    <ul style="text-align: left; margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Project Conception:</strong> Initial idea and problem identification</li>
+                        
+                        <li><strong>Reference Collection:</strong> Gathering best practices and case studies</li>
+                        <li><strong>Feature Planning:</strong> User requirement analysis and feature ideation</li>
+                        <li><strong>Industry Insights:</strong> Healthcare system research and compliance</li>
+                    </ul>
+                    <p>His vision and research laid the groundwork for a platform that truly addresses real-world blood donation challenges.</p>
+                    <div class="member-social">
+                        <a href="https://www.linkedin.com/in/yash-zade-224417290/"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="team-quote">
+            <p>"Together, we combined our unique strengths - technical expertise, security focus, and visionary research - to create a platform that addresses real healthcare challenges. DonorHub represents our shared commitment to using technology for social good and making a tangible impact in our communities."</p>
+        </div>
+
+        <!-- Technical Skills Showcase -->
+        <div class="technical-skills">
+            <div class="section-title" style="text-align: center; margin-top: 50px;">
+                <h3>Our Collaborative Technical Stack</h3>
+                <p>Combining expertise across the full development lifecycle</p>
+            </div>
+            
+            <div class="skills-container">
+                <div class="skill-category">
+                    <h4>Backend & Database (Avish)</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">RESTful APIs</span>
+                        <span class="skill-tag">Email OTP</span>
+                        <span class="skill-tag">Business Logic</span>
+                         <span class="skill-tag">Market Analysis</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Security & Authentication (Sahil)</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">User Authentication</span>
+                        <span class="skill-tag">Session Management</span>
+                        <span class="skill-tag">Route Protection</span>
+                        <span class="skill-tag">Data Encryption</span>
+                        <span class="skill-tag">Access Control</span>
+                        <span class="skill-tag">Security Protocols</span>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h4>Research & Planning (Yash)</h4>
+                    <div class="skill-tags">
+                        
+                        <span class="skill-tag">User Research</span>
+                        <span class="skill-tag">Feature Planning</span>
+                        <span class="skill-tag">Industry Compliance</span>
+                        <span class="skill-tag">Reference Collection</span>
+                        <span class="skill-tag">Project Vision</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="find_donor.html">Find Donors</a></li>
+                        <li><a href="donor.html">Register as Donor</a></li>
+                        <li><a href="blood_request.html">Request Blood</a></li>
+                        <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                        <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                        <li><a href="education.html">Education</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@donorhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for mobile menu toggle (would be expanded in a real application)
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileMenu.addEventListener('click', function() {
+                navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            // Stats counter animation (simplified)
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            // In a real application, we would animate these numbers
+            // For this demo, we'll just log a message
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        console.log('Stats section is visible - would animate numbers here');
+                    }
+                });
+            });
+            
+            statNumbers.forEach(stat => {
+                observer.observe(stat);
+            });
+        });
+    </script>
+
+    <script src="../js/custom-alerts.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        // Handle auth buttons visibility and logout functionality
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            // User is logged in - hide login/register, show logout
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        } else {
+            // User is not logged in - show login/register, hide logout
+            document.getElementById('loginBtn').style.display = 'inline-block';
+            document.getElementById('registerBtn').style.display = 'inline-block';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+
+        // Logout functionality with custom alerts
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            const confirmed = await customConfirm('Are you sure you want to logout?');
+            if (confirmed) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userType');
+                localStorage.removeItem('user');
+                await customAlert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

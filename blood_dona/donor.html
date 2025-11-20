@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register as Donor - DonorHub</title>
+        <link rel="stylesheet" href="../css/donor.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="../css/custom-alerts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html" class="active">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Become a Blood Donor</h2>
+            <p>Join thousands of DonorHubs in our community. Your donation can save up to three lives.</p>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section class="registration-section">
+        <div class="container">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Personal Info</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Medical Info</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Review & Submit</div>
+                </div>
+            </div>
+            
+            <div class="registration-container">
+                <!-- Registration Info -->
+                <div class="registration-info">
+                    <div class="section-title">
+                        <h2>Why Donate Blood?</h2>
+                    </div>
+                    
+                    <ul class="benefits-list">
+                        <li>
+                            <i class="fas fa-heartbeat"></i>
+                            <div>
+                                <strong>Save Lives</strong>
+                                <p>Your donation can help up to 3 people in need</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-user-md"></i>
+                            <div>
+                                <strong>Health Benefits</strong>
+                                <p>Regular donation helps maintain healthy iron levels</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <strong>Community Impact</strong>
+                                <p>Contribute to your community's blood supply</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-calendar-check"></i>
+                            <div>
+                                <strong>Free Health Check</strong>
+                                <p>Receive a mini health screening before donation</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="eligibility-criteria">
+                        <h3>Basic Eligibility</h3>
+                        <ul>
+                            <li>Age between 18-65 years</li>
+                            <li>Weight at least 50 kg (110 lbs)</li>
+                            <li>Good general health</li>
+                            <li>No recent illnesses or infections</li>
+                            <li>Not pregnant or breastfeeding</li>
+                            <li>No recent tattoos/piercings (within 4 months)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Registration Form -->
+                <div class="registration-form-container">
+                    <div class="section-title">
+                        <h2>Donor Registration</h2>
+                    </div>
+                    
+                    <form id="donorRegistrationForm">
+                        <!-- Personal Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">Personal Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" class="form-control" placeholder="Enter your first name" required>
+                                    <div class="error" id="firstNameError">Please enter your first name</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" class="form-control" placeholder="Enter your last name" required>
+                                    <div class="error" id="lastNameError">Please enter your last name</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                                    <div class="error" id="emailError">Please enter a valid email address</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="phone">Phone Number *</label>
+                                    <input type="tel" id="phone" class="form-control" placeholder="Enter your phone number" required>
+                                    <div class="error" id="phoneError">Please enter a valid phone number</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="dateOfBirth">Date of Birth *</label>
+                                    <input type="date" id="dateOfBirth" class="form-control" required>
+                                    <div class="error" id="dobError">You must be between 18-65 years old to donate</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="gender">Gender *</label>
+                                    <select id="gender" class="form-control" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                    <div class="error" id="genderError">Please select your gender</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="weight">Weight (kg) *</label>
+                                    <input type="number" id="weight" class="form-control" placeholder="Enter your weight in kg" min="50" required>
+                                    <div class="error" id="weightError">Minimum weight required is 50 kg</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="bloodGroup">Blood Group *</label>
+                                    <select id="bloodGroup" class="form-control" required>
+                                        <option value="">Select Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
+                                    <div class="error" id="bloodGroupError">Please select your blood group</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Address Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">Address Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="address">Street Address *</label>
+                                    <input type="text" id="address" class="form-control" placeholder="Enter your street address" required>
+                                    <div class="error" id="addressError">Please enter your address</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="city">City *</label>
+                                    <input type="text" id="city" class="form-control" placeholder="Enter your city" required>
+                                    <div class="error" id="cityError">Please enter your city</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="state">State/Province *</label>
+                                    <input type="text" id="state" class="form-control" placeholder="Enter your state" required>
+                                    <div class="error" id="stateError">Please enter your state</div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="zipCode">ZIP/Postal Code *</label>
+                                    <input type="text" id="zipCode" class="form-control" placeholder="Enter your ZIP code" required>
+                                    <div class="error" id="zipCodeError">Please enter your ZIP code</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <select id="country" class="form-control" required>
+                                        <option value="">Select Country</option>
+                                        <option value="USA">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="UK">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="India">India</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <div class="error" id="countryError">Please select your country</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Medical Information -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">Medical Information</h3>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="lastDonation">Last Donation Date</label>
+                                    <input type="date" id="lastDonation" class="form-control">
+                                    <div class="form-text">Leave blank if you've never donated before</div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="healthConditions">Existing Health Conditions</label>
+                                    <select id="healthConditions" class="form-control">
+                                        <option value="">Select if applicable</option>
+                                        <option value="none">None</option>
+                                        <option value="hypertension">Hypertension</option>
+                                        <option value="diabetes">Diabetes</option>
+                                        <option value="heart-disease">Heart Disease</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="recentSickness" name="recentSickness">
+                                <label for="recentSickness">I have been sick in the last 2 weeks</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="recentMedication" name="recentMedication">
+                                <label for="recentMedication">I am currently taking any medication</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="recentTravel" name="recentTravel">
+                                <label for="recentTravel">I have traveled outside the country in the last 3 months</label>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="tattooPiercing" name="tattooPiercing">
+                                <label for="tattooPiercing">I have had a tattoo or piercing in the last 4 months</label>
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Conditions -->
+                        <div class="form-section">
+                            <h3 class="form-section-title">Terms & Conditions</h3>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <label for="terms">I agree to the <a href="#" class="terms-link">Terms and Conditions</a> and <a href="#" class="terms-link">Privacy Policy</a> *</label>
+                                <div class="error" id="termsError">You must agree to the terms and conditions</div>
+                            </div>
+                            
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="consent" name="consent" required>
+                                <label for="consent">I consent to be contacted for blood donation requests and related communications *</label>
+                                <div class="error" id="consentError">You must provide consent to be contacted</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="reset" class="btn-reset">Reset Form</button>
+                            <button type="submit" class="btn-submit">Register as Donor</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="find-donors.html">Find Donors</a></li>
+                        <li><a href="#">Register as Donor</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@donorhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Registration Successful!</h2>
+            <p>Thank you for registering as a blood donor. Your information has been saved and you'll be notified when there's a need for your blood type.</p>
+            <div class="modal-actions">
+                <button class="btn btn-outline" id="closeModal">Close</button>
+                <button class="btn btn-primary" id="goToDashboard">Go to Dashboard</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load all dependencies first -->
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/donor-api.js"></script>
+    <script src="../js/custom-alerts.js"></script>
+    <script src="../js/auth.js"></script>
+    
+    <!-- Auth buttons and logout functionality -->
+    <script>
+        // Handle auth buttons visibility
+        if (localStorage.getItem('isLoggedIn') === 'true') {
+            // User is logged in - hide login/register, show logout
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('registerBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+        } else {
+            // User is not logged in - show login/register, hide logout
+            document.getElementById('loginBtn').style.display = 'inline-block';
+            document.getElementById('registerBtn').style.display = 'inline-block';
+            document.getElementById('logoutBtn').style.display = 'none';
+        }
+
+        // Logout functionality with custom alerts
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            const confirmed = await customConfirm('Are you sure you want to logout?');
+            if (confirmed) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userType');
+                localStorage.removeItem('user');
+                await customAlert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+    
+    <!-- Form validation and submission handler -->
+    <script>
+        // Form validation and submission
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOMContentLoaded fired - initializing donor form');
+            
+            // Check authentication first - redirect if not logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('� eAuthentication check:', isLoggedIn);
+            
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                console.log('❌ Not logged in - redirecting to index.html');
+                customAlert('🔒 Please login first to register as a donor').then(() => {
+                    window.location.href = 'index.html';
+                });
+                return; // Stop execution after redirect
+            }
+            
+            console.log('✅ User is logged in - proceeding with form setup');
+            
+            // Check backend status on page load
+            checkBackendStatus().then(isAvailable => {
+                console.log('🔌 Backend status:', isAvailable ? 'AVAILABLE' : 'NOT AVAILABLE');
+                if (!isAvailable) {
+                    showErrorMessage('⚠️ Backend server is not running. You can still fill out the form, but submission will fail until the server is running.', 8000);
+                }
+            });
+            
+            const form = document.getElementById('donorRegistrationForm');
+            const successModal = document.getElementById('successModal');
+            const closeModal = document.getElementById('closeModal');
+            const goToDashboard = document.getElementById('goToDashboard');
+            
+            console.log('📋 Form element:', form ? 'FOUND' : 'NOT FOUND');
+            console.log('🎭 Success modal:', successModal ? 'FOUND' : 'NOT FOUND');
+            
+            // Check if required functions exist
+            console.log('🔧 Function availability:');
+            console.log('  - collectDonorFormData:', typeof collectDonorFormData !== 'undefined');
+            console.log('  - submitDonorRegistration:', typeof submitDonorRegistration !== 'undefined');
+            console.log('  - displayDonorSuccess:', typeof displayDonorSuccess !== 'undefined');
+            console.log('  - displayDonorError:', typeof displayDonorError !== 'undefined');
+            console.log('  - apiCall:', typeof apiCall !== 'undefined');
+            console.log('  - handleApiError:', typeof handleApiError !== 'undefined');
+            
+            // Show error message
+            function showError(inputId, message) {
+                const errorElement = document.getElementById(inputId + 'Error');
+                const inputElement = document.getElementById(inputId);
+                
+                if (errorElement) {
+                    errorElement.textContent = message;
+                    errorElement.style.display = 'block';
+                }
+                if (inputElement) {
+                    inputElement.classList.add('error-input');
+                }
+            }
+            
+            // Hide error message
+            function hideError(inputId) {
+                const errorElement = document.getElementById(inputId + 'Error');
+                const inputElement = document.getElementById(inputId);
+                
+                if (errorElement) {
+                    errorElement.style.display = 'none';
+                }
+                if (inputElement) {
+                    inputElement.classList.remove('error-input');
+                }
+            }
+            
+            // Validate email
+            function validateEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+            
+            // Validate phone number (basic validation)
+            function validatePhone(phone) {
+                const re = /^[\+]?[0-9\s\-\(\)]{10,}$/;
+                return re.test(phone);
+            }
+            
+            // Validate date of birth (must be between 18-65 years)
+            function validateDOB(dob) {
+                const today = new Date();
+                const birthDate = new Date(dob);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                
+                return age >= 18 && age <= 65;
+            }
+            
+            // Validate weight (minimum 50 kg)
+            function validateWeight(weight) {
+                return weight >= 50;
+            }
+            
+            // Form submission handler
+            if (!form) {
+                console.error('❌ CRITICAL ERROR: Form element not found!');
+                alert('ERROR: Form element not found. Please refresh the page.');
+                return;
+            }
+            
+            console.log('📝 Attaching form submit event listener to form:', form);
+            form.addEventListener('submit', async function(e) {
+                console.log('🎯 Form submit event triggered!');
+                e.preventDefault();
+                console.log('✋ Default form submission prevented');
+                
+                let isValid = true;
+                
+                // Validate required fields
+                const requiredFields = [
+                    'firstName', 'lastName', 'email', 'phone', 'dateOfBirth', 
+                    'gender', 'weight', 'bloodGroup', 'address', 'city', 
+                    'state', 'zipCode', 'country'
+                ];
+                
+                requiredFields.forEach(field => {
+                    const value = document.getElementById(field).value.trim();
+                    if (!value) {
+                        showError(field, 'This field is required');
+                        isValid = false;
+                    } else {
+                        hideError(field);
+                    }
+                });
+                
+                // Validate email format
+                const email = document.getElementById('email').value.trim();
+                if (email && !validateEmail(email)) {
+                    showError('email', 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                // Validate phone format
+                const phone = document.getElementById('phone').value.trim();
+                if (phone && !validatePhone(phone)) {
+                    showError('phone', 'Please enter a valid phone number');
+                    isValid = false;
+                }
+                
+                // Validate date of birth
+                const dob = document.getElementById('dateOfBirth').value;
+                if (dob && !validateDOB(dob)) {
+                    showError('dateOfBirth', 'You must be between 18-65 years old to donate');
+                    isValid = false;
+                }
+                
+                // Validate weight
+                const weight = document.getElementById('weight').value;
+                if (weight && !validateWeight(weight)) {
+                    showError('weight', 'Minimum weight required is 50 kg');
+                    isValid = false;
+                }
+                
+                // Validate terms and consent
+                const termsChecked = document.getElementById('terms').checked;
+                const consentChecked = document.getElementById('consent').checked;
+                
+                if (!termsChecked) {
+                    showError('terms', 'You must agree to the terms and conditions');
+                    isValid = false;
+                } else {
+                    hideError('terms');
+                }
+                
+                if (!consentChecked) {
+                    showError('consent', 'You must provide consent to be contacted');
+                    isValid = false;
+                } else {
+                    hideError('consent');
+                }
+                
+                // If form is valid, submit to API
+                console.log('✅ Form validation passed:', isValid);
+                if (isValid) {
+                    console.log('📤 Preparing to submit form data...');
+                    // Get submit button and add loading state
+                    const submitBtn = form.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Registering...';
+                    submitBtn.style.opacity = '0.7';
+                    console.log('🔄 Submit button disabled and showing loading state');
+                    
+                    try {
+                        // Collect form data
+                        console.log('📊 Collecting form data...');
+                        const formData = collectDonorFormData();
+                        console.log('📦 Form data collected:', formData);
+                        
+                        // Submit to API
+                        console.log('🌐 Submitting to API...');
+                        const response = await submitDonorRegistration(formData);
+                        console.log('✅ API response received:', response);
+                        
+                        // Show success modal with donor data
+                        console.log('🎉 Displaying success modal');
+                        displayDonorSuccess(response.donor || response);
+                        
+                        // Clear form fields after successful submission
+                        console.log('🧹 Clearing form');
+                        form.reset();
+                        
+                    } catch (error) {
+                        // Handle error - keep form data for retry
+                        console.error('❌ Error during form submission:', error);
+                        if (error.message && error.message.includes('Unable to connect to server')) {
+                            console.log('🔌 Checking backend status...');
+                            const backendAvailable = await checkBackendStatus();
+                            if (!backendAvailable) {
+                                console.error('❌ Backend is not available');
+                                displayDonorError('Unable to connect to the server. Please check your connection and try again.');
+                            } else {
+                                console.error('❌ Backend is available but error occurred');
+                                const errorMessage = handleApiError(error);
+                                displayDonorError(errorMessage);
+                            }
+                        } else {
+                            console.error('❌ General error:', error.message);
+                            const errorMessage = handleApiError(error);
+                            displayDonorError(errorMessage);
+                        }
+                        
+                    } finally {
+                        // Reset button state
+                        console.log('🔄 Resetting submit button state');
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        submitBtn.style.opacity = '1';
+                    }
+                } else {
+                    console.log('❌ Form validation failed - not submitting');
+                }
+            });
+            
+            // Modal event handlers
+            closeModal.addEventListener('click', function() {
+                successModal.style.display = 'none';
+            });
+            
+            goToDashboard.addEventListener('click', function() {
+                // Redirect to find donor page (dashboard)
+                window.location.href = 'find_donor.html';
+                successModal.style.display = 'none';
+            });
+            
+            // Real-time validation for some fields
+            document.getElementById('email').addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email && !validateEmail(email)) {
+                    showError('email', 'Please enter a valid email address');
+                } else {
+                    hideError('email');
+                }
+            });
+            
+            document.getElementById('phone').addEventListener('blur', function() {
+                const phone = this.value.trim();
+                if (phone && !validatePhone(phone)) {
+                    showError('phone', 'Please enter a valid phone number');
+                } else {
+                    hideError('phone');
+                }
+            });
+            
+            document.getElementById('dateOfBirth').addEventListener('change', function() {
+                const dob = this.value;
+                if (dob && !validateDOB(dob)) {
+                    showError('dateOfBirth', 'You must be between 18-65 years old to donate');
+                } else {
+                    hideError('dateOfBirth');
+                }
+            });
+            
+            document.getElementById('weight').addEventListener('blur', function() {
+                const weight = this.value;
+                if (weight && !validateWeight(weight)) {
+                    showError('weight', 'Minimum weight required is 50 kg');
+                } else {
+                    hideError('weight');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

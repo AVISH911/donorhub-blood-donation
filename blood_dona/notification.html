@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications - DonorHub</title>
+        <link rel="stylesheet" href="css/notification.css">
+    <link rel="stylesheet" href="css/otp-styles.css">
+    <link rel="stylesheet" href="css/custom-alerts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html" class="active">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+             <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-bell"></i> Notifications</h1>
+            <p>Stay updated with blood donation requests, camps, and reminders</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Notification Filters -->
+        <div class="notification-filters">
+            <button class="filter-btn active" data-filter="all">All Notifications</button>
+            <button class="filter-btn" data-filter="urgent">Urgent Requests</button>
+            <button class="filter-btn" data-filter="reminder">Reminders</button>
+            <button class="filter-btn" data-filter="info">Information</button>
+            <button class="filter-btn" data-filter="success">Success Stories</button>
+        </div>
+
+        <!-- Notification Actions -->
+        <div class="notification-actions">
+            <div class="unread-count">
+                <span id="unreadCount">5</span> unread notifications
+            </div>
+            <button class="mark-all-read" id="markAllRead">
+                <i class="fas fa-check-double"></i> Mark all as read
+            </button>
+        </div>
+
+        <!-- Notifications List -->
+        <div class="notifications-container">
+            <!-- Urgent Blood Request -->
+            <div class="notification-item unread" data-type="urgent">
+                <div class="notification-icon urgent">
+                    <i class="fas fa-exclamation-circle"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">
+                        Urgent Blood Request
+                        <span class="notification-badge badge-urgent">Urgent</span>
+                    </div>
+                    <div class="notification-message">
+                        Emergency need for O+ blood at City Hospital. Patient: 35-year-old male, accident victim.
+                    </div>
+                    <div class="notification-time">
+                        <i class="far fa-clock"></i> 15 minutes ago
+                    </div>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn view" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Donation Reminder -->
+            <div class="notification-item unread" data-type="reminder">
+                <div class="notification-icon reminder">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">
+                        Donation Reminder
+                        <span class="notification-badge badge-reminder">Reminder</span>
+                    </div>
+                    <div class="notification-message">
+                        You are eligible to donate blood again. Your next donation date is available from October 15.
+                    </div>
+                    <div class="notification-time">
+                        <i class="far fa-clock"></i> 2 hours ago
+                    </div>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read" title="Mark as read">
+                        <i class="far fa-check-circle"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Blood Camp Notification -->
+            <div class="notification-item" data-type="info">
+                <div class="notification-icon info">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">
+                        Upcoming Blood Donation Camp
+                        <span class="notification-badge badge-info">Information</span>
+                    </div>
+                    <div class="notification-message">
+                        Red Cross Blood Donation Camp at Central Park on October 10, 2023. Register now to participate.
+                    </div>
+                    <div class="notification-time">
+                        <i class="far fa-clock"></i> 1 day ago
+                    </div>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn view" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Blood Donation Success -->
+            <div class="notification-item" data-type="success">
+                <div class="notification-icon success">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">
+                        Your Blood Saved a Life!
+                        <span class="notification-badge badge-success">Success</span>
+                    </div>
+                    <div class="notification-message">
+                        The blood you donated on September 5 was used to save a 7-year-old child with leukemia. Thank you!
+                    </div>
+                    <div class="notification-time">
+                        <i class="far fa-clock"></i> 3 days ago
+                    </div>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn mark-read" title="Mark as read">
+                        <i class="far fa-check-circle"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Blood Stock Update -->
+            <div class="notification-item" data-type="info">
+                <div class="notification-icon info">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">
+                        Blood Stock Update
+                        <span class="notification-badge badge-info">Information</span>
+                    </div>
+                    <div class="notification-message">
+                        Critical shortage of O- blood type reported in regional blood banks. Please consider donating if eligible.
+                    </div>
+                    <div class="notification-time">
+                        <i class="far fa-clock"></i> 5 days ago
+                    </div>
+                </div>
+                <div class="notification-actions-item">
+                    <button class="action-btn view" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+                <i class="far fa-bell-slash"></i>
+                <h3>No notifications</h3>
+                <p>You're all caught up! When you have new notifications, they'll appear here.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="#">Blood Camps</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@DonorHub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // DOM Elements
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const notificationItems = document.querySelectorAll('.notification-item');
+        const markAllReadBtn = document.getElementById('markAllRead');
+        const unreadCountEl = document.getElementById('unreadCount');
+        const emptyState = document.getElementById('emptyState');
+
+        // Filter notifications
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active filter button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                let visibleCount = 0;
+                
+                // Show/hide notifications based on filter
+                notificationItems.forEach(item => {
+                    if (filter === 'all' || item.dataset.type === filter) {
+                        item.style.display = 'flex';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // Show empty state if no notifications
+                if (visibleCount === 0) {
+                    emptyState.style.display = 'block';
+                } else {
+                    emptyState.style.display = 'none';
+                }
+            });
+        });
+
+        // Mark all as read
+        markAllReadBtn.addEventListener('click', () => {
+            notificationItems.forEach(item => {
+                item.classList.remove('unread');
+            });
+            updateUnreadCount();
+        });
+
+        // Mark individual notification as read
+        document.querySelectorAll('.mark-read').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const notification = e.target.closest('.notification-item');
+                notification.classList.remove('unread');
+                updateUnreadCount();
+            });
+        });
+
+        // Delete notification
+        document.querySelectorAll('.action-btn.delete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const notification = e.target.closest('.notification-item');
+                notification.style.display = 'none';
+                
+                // Check if all notifications are deleted
+                const visibleNotifications = document.querySelectorAll('.notification-item[style=""]');
+                if (visibleNotifications.length === 0) {
+                    emptyState.style.display = 'block';
+                }
+                
+                updateUnreadCount();
+            });
+        });
+
+        // Update unread count
+        function updateUnreadCount() {
+            const unreadItems = document.querySelectorAll('.notification-item.unread');
+            unreadCountEl.textContent = unreadItems.length;
+        }
+
+        // Initialize
+        updateUnreadCount();
+    </script>
+    <script src="js/api-utils.js"></script>
+    <script src="js/notification-api.js"></script>
+    <script src="js/custom-alerts.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+<script>
+// Verify custom alerts are loaded
+console.log('Custom alerts loaded:', typeof customConfirm, typeof customAlert);
+
+// Handle auth buttons visibility
+if (localStorage.getItem('isLoggedIn') === 'true') {
+    // User is logged in - hide login/register, show logout
+    document.getElementById('loginBtn').style.display = 'none';
+    document.getElementById('registerBtn').style.display = 'none';
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+    
+    // Load dynamic notifications
+    console.log('Loading notifications from database...');
+    loadNotifications().then(notifications => {
+        console.log('Loaded notifications:', notifications);
+        displayNotifications(notifications);
+    }).catch(error => {
+        console.error('Failed to load notifications:', error);
+    });
+} else {
+    // User is not logged in - show login/register, hide logout
+    document.getElementById('loginBtn').style.display = 'inline-block';
+    document.getElementById('registerBtn').style.display = 'inline-block';
+    document.getElementById('logoutBtn').style.display = 'none';
+    
+    // Show message that login is required for notifications
+    console.log('User not logged in - notifications require authentication');
+}
+
+// Logout functionality with custom alerts
+const logoutButton = document.getElementById('logoutBtn');
+if (logoutButton) {
+    logoutButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        console.log('Logout button clicked');
+        
+        try {
+            const confirmed = await customConfirm('Are you sure you want to logout?');
+            console.log('Confirmation result:', confirmed);
+            
+            if (confirmed) {
+                localStorage.removeItem('isLoggedIn');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userType');
+                localStorage.removeItem('user');
+                await customAlert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+            // Fallback to browser alerts if custom alerts fail
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.clear();
+                alert('Logged out successfully!');
+                window.location.href = 'index.html';
+            }
+        }
+    });
+} else {
+    console.error('Logout button not found!');
+}
+
+// Filter button functionality
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        // Get filter type
+        const filterType = this.getAttribute('data-filter');
+        
+        // Filter notifications
+        filterNotifications(filterType);
+    });
+});
+
+// Mark all as read functionality
+document.getElementById('markAllRead')?.addEventListener('click', () => {
+    document.querySelectorAll('.notification-item.unread').forEach(item => {
+        item.classList.remove('unread');
+    });
+    updateUnreadCount();
+});
+
+// Mobile menu toggle
+document.querySelector('.mobile-menu')?.addEventListener('click', () => {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+    } else {
+        navLinks.style.display = 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '60px';
+        navLinks.style.right = '20px';
+        navLinks.style.backgroundColor = 'white';
+        navLinks.style.padding = '20px';
+        navLinks.style.borderRadius = '8px';
+        navLinks.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        navLinks.style.zIndex = '1000';
+    }
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (!mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+        if (window.innerWidth <= 992) {
+            navLinks.style.display = 'none';
+        }
+    }
+});
+</script>
+</body>
+</html>

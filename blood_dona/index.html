@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DonorHub - Blood Donation Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/otp-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="registerBtn">Register</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Donate Blood, Save Lives</h2>
+            <p>Join our community of blood donors and make a difference. Your single donation can save up to three lives.</p>
+            <div class="hero-buttons">
+               <div class="box" onclick="window.location.href='find_donor.html';"> <button class="btn btn-primary">Find Blood Donors</button></div>
+               <div class="box" onclick="window.location.href='doctor.html';"> <button class="btn btn-outline">Register as Doctor</button></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Key Features</h2>
+                <p>Comprehensive platform connecting donors, recipients, and blood banks</p>
+            </div>
+             <div class="box" onclick="window.location.href='donor.html';">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3>Donor Registration</h3>
+                    <p>Register as a blood donor with your personal details and blood type</p>
+                </div>
+                </div></div>
+                
+                 <div class="box" onclick="window.location.href='find_donor.html';">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Find Donors</h3>
+                    <p>Search for blood donors by location, blood group, and availability</p>
+                </div>
+                </div>
+            
+                
+                <div class="box" onclick="window.location.href='blood_request.html';">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+
+                    <h3>Blood Requests</h3>
+                    <p>Post urgent blood requests and get responses from nearby donors</p>
+                </div>
+                </div>
+                
+                 
+                <div class="box" onclick="window.location.href='blood_bank_info.html';">
+ 
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-hospital"></i>
+                    </div>
+                    <h3>Blood Bank Info</h3>
+                    <p>Find verified blood banks with contact details and stock information</p>
+                </div>
+                </div>
+               <div class="box" onclick="window.location.href='blood_donation_camp.html';">
+ 
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Blood Donation Camps</h3>
+                    <p>Find and register for upcoming blood donation camps</p>
+                </div>
+                </div>
+                
+               <div class="box" onclick="window.location.href='notification.html';">
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <!-- <button><a href="notification.html"><b>Notification</b></a></button> -->
+                    <h3>Notifications</h3>
+                    <!-- <script> function goTonotification(){
+                        window.location.href="notification.html";}</script> -->
+                    <p>Get alerts for blood requests, camps, and donation eligibility</p>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container stats-container">
+            <div class="stat-item">
+                <h3>25,000+</h3>
+                <p>Registered Donors</p>
+            </div>
+            <div class="stat-item">
+                <h3>1,200+</h3>
+                <p>Blood Banks</p>
+            </div>
+            <div class="stat-item">
+                <h3>50,000+</h3>
+                <p>Lives Saved</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Blood Camps</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blood Groups Section -->
+    <section class="blood-groups">
+        <div class="container">
+            <div class="section-title">
+                <h2>Blood Groups Availability</h2>
+                <p>Current availability of different blood types in our network</p>
+            </div>
+            
+            <div class="blood-group-container">
+                <div class="blood-group">
+                    <div class="blood-group-type">A+</div>
+                    <div class="blood-group-count">1,250 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">A-</div>
+                    <div class="blood-group-count">580 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">B+</div>
+                    <div class="blood-group-count">1,450 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">B-</div>
+                    <div class="blood-group-count">420 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">O+</div>
+                    <div class="blood-group-count">2,150 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">O-</div>
+                    <div class="blood-group-count">350 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">AB+</div>
+                    <div class="blood-group-count">680 Donors</div>
+                </div>
+                <div class="blood-group">
+                    <div class="blood-group-type">AB-</div>
+                    <div class="blood-group-count">220 Donors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Simple steps to become a blood donor or find one</p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Register</h3>
+                    <p>Create an account as a donor or recipient</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Search</h3>
+                    <p>Find donors by location and blood type</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Connect</h3>
+                    <p>Contact matched donors directly</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Donate</h3>
+                    <p>Schedule donation at a center or camp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="#">Blood Camps</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@DonorHub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <div class="modal-tabs">
+                <div class="tab active" data-tab="login">Login</div>
+                <div class="tab" data-tab="register">Register</div>
+            </div>
+            
+            <div class="tab-content active" id="login-tab">
+                <h2>Login to Your Account</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                    </div>
+                    
+                    <p style="text-align: center;">Don't have an account? <a href="#" id="switchToRegister">Register here</a></p>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="register-tab">
+                <h2>Create an Account</h2>
+                <form id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <div class="email-input-wrapper">
+                            <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                            <button type="button" id="sendOtpBtn" class="btn btn-outline btn-send-otp">
+                                <span class="btn-text">Send OTP</span>
+                                <span class="btn-spinner" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                            <span class="email-verified-icon" style="display: none;">
+                                <i class="fas fa-check-circle"></i>
+                            </span>
+                        </div>
+                        <a href="#" id="changeEmailLink" class="change-email-link" style="display: none;">Change Email</a>
+                    </div>
+                    
+                    <!-- OTP Verification Section -->
+                    <div class="otp-section" id="otpSection" style="display: none;">
+                        <div class="form-group">
+                            <label for="otpInput">Enter OTP</label>
+                            <input type="text" id="otpInput" class="form-control otp-input" placeholder="Enter 6-digit code" maxlength="6" pattern="[0-9]{6}">
+                            <div class="otp-timer-wrapper">
+                                <span class="otp-expiration-timer" id="otpExpirationTimer"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="resend-otp-wrapper">
+                            <button type="button" id="resendOtpBtn" class="btn btn-outline btn-resend-otp" disabled>
+                                <span class="btn-text">Resend OTP</span>
+                                <span class="btn-spinner" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </span>
+                            </button>
+                            <span class="resend-countdown" id="resendCountdown"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Message Display Areas -->
+                    <div class="message-area">
+                        <div class="success-message" id="otpSuccessMessage" style="display: none;"></div>
+                        <div class="error-message" id="otpErrorMessage" style="display: none;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" placeholder="Create a password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="registerUserType">I am a:</label>
+                        <select id="registerUserType" class="form-control" required>
+                            <option value="">Select user type</option>
+                            <option value="donor">Blood Donor</option>
+                            <option value="recipient">Recipient</option>
+                            <option value="hospital">Hospital/Organization</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" id="registerSubmitBtn" class="btn btn-primary" style="width: 100%;" disabled>Register</button>
+                    </div>
+                    
+                    <p style="text-align: center;">Already have an account? <a href="#" id="switchToLogin">Login here</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api-utils.js"></script>
+    <script src="js/otp-verification.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // OTP State Management
+        const otpState = {
+            email: '',
+            otpSent: false,
+            otpVerified: false,
+            otpValue: '',
+            isLoading: false,
+            errorMessage: '',
+            successMessage: '',
+            resendCooldown: 0,
+            otpExpiration: 0,
+            resendTimerInterval: null,
+            expirationTimerInterval: null
+        };
+
+        // DOM Elements
+        const registerEmail = document.getElementById('registerEmail');
+        const sendOtpBtn = document.getElementById('sendOtpBtn');
+        const otpSection = document.getElementById('otpSection');
+        const otpInput = document.getElementById('otpInput');
+        const resendOtpBtn = document.getElementById('resendOtpBtn');
+        const changeEmailLink = document.getElementById('changeEmailLink');
+        const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+        const otpSuccessMessage = document.getElementById('otpSuccessMessage');
+        const otpErrorMessage = document.getElementById('otpErrorMessage');
+        const resendCountdown = document.getElementById('resendCountdown');
+        const otpExpirationTimer = document.getElementById('otpExpirationTimer');
+        const emailVerifiedIcon = document.querySelector('.email-verified-icon');
+
+        // Update UI based on state
+        function updateOtpUI() {
+            // Email field state
+            registerEmail.disabled = otpState.otpSent;
+            
+            // Send OTP button state
+            if (otpState.otpVerified) {
+                sendOtpBtn.style.display = 'none';
+                emailVerifiedIcon.style.display = 'inline-block';
+            } else {
+                sendOtpBtn.disabled = otpState.isLoading || otpState.otpSent;
+            }
+            
+            // OTP section visibility
+            otpSection.style.display = otpState.otpSent && !otpState.otpVerified ? 'block' : 'none';
+            
+            // Change email link
+            changeEmailLink.style.display = otpState.otpSent && !otpState.otpVerified ? 'inline-block' : 'none';
+            
+            // Submit button state
+            registerSubmitBtn.disabled = !otpState.otpVerified;
+            
+            // Loading spinners
+            const sendSpinner = sendOtpBtn.querySelector('.btn-spinner');
+            const sendText = sendOtpBtn.querySelector('.btn-text');
+            if (otpState.isLoading && !otpState.otpSent) {
+                sendSpinner.style.display = 'inline-block';
+                sendText.style.display = 'none';
+            } else {
+                sendSpinner.style.display = 'none';
+                sendText.style.display = 'inline-block';
+            }
+        }
+
+        // Show success message
+        function showSuccessMessage(message) {
+            otpSuccessMessage.textContent = message;
+            otpSuccessMessage.style.display = 'block';
+            otpErrorMessage.style.display = 'none';
+            setTimeout(() => {
+                otpSuccessMessage.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show error message with optional retry button
+        function showErrorMessage(message, showRetry = false, retryCallback = null) {
+            otpErrorMessage.innerHTML = message;
+            
+            // Add retry button if requested
+            if (showRetry && retryCallback) {
+                const retryBtn = document.createElement('button');
+                retryBtn.textContent = 'Retry';
+                retryBtn.className = 'btn btn-outline btn-sm';
+                retryBtn.style.marginLeft = '10px';
+                retryBtn.onclick = retryCallback;
+                otpErrorMessage.appendChild(retryBtn);
+            }
+            
+            otpErrorMessage.style.display = 'block';
+            otpSuccessMessage.style.display = 'none';
+        }
+
+        // Clear messages
+        function clearMessages() {
+            otpSuccessMessage.style.display = 'none';
+            otpErrorMessage.style.display = 'none';
+        }
+
+        // Start resend countdown timer (60 seconds)
+        function startResendTimer() {
+            otpState.resendCooldown = 60;
+            resendOtpBtn.disabled = true;
+            
+            if (otpState.resendTimerInterval) {
+                clearInterval(otpState.resendTimerInterval);
+            }
+            
+            otpState.resendTimerInterval = setInterval(() => {
+                otpState.resendCooldown--;
+                resendCountdown.textContent = `(${otpState.resendCooldown}s)`;
+                
+                if (otpState.resendCooldown <= 0) {
+                    clearInterval(otpState.resendTimerInterval);
+                    resendOtpBtn.disabled = false;
+                    resendCountdown.textContent = '';
+                }
+            }, 1000);
+        }
+
+        // Start OTP expiration timer (10 minutes)
+        function startExpirationTimer(expiresAt) {
+            otpState.otpExpiration = new Date(expiresAt).getTime();
+            
+            if (otpState.expirationTimerInterval) {
+                clearInterval(otpState.expirationTimerInterval);
+            }
+            
+            otpState.expirationTimerInterval = setInterval(() => {
+                const now = Date.now();
+                const timeLeft = otpState.otpExpiration - now;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(otpState.expirationTimerInterval);
+                    otpExpirationTimer.textContent = 'OTP expired';
+                    otpExpirationTimer.style.color = 'var(--primary)';
+                    showErrorMessage('OTP expired. Please request a new code');
+                } else {
+                    const minutes = Math.floor(timeLeft / 60000);
+                    const seconds = Math.floor((timeLeft % 60000) / 1000);
+                    otpExpirationTimer.textContent = `Expires in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    otpExpirationTimer.style.color = timeLeft < 60000 ? 'var(--primary)' : 'var(--gray)';
+                }
+            }, 1000);
+        }
+
+        // Clear all timers
+        function clearTimers() {
+            if (otpState.resendTimerInterval) {
+                clearInterval(otpState.resendTimerInterval);
+            }
+            if (otpState.expirationTimerInterval) {
+                clearInterval(otpState.expirationTimerInterval);
+            }
+            resendCountdown.textContent = '';
+            otpExpirationTimer.textContent = '';
+        }
+
+        // Reset OTP state
+        function resetOtpState() {
+            otpState.otpSent = false;
+            otpState.otpVerified = false;
+            otpState.otpValue = '';
+            otpState.isLoading = false;
+            otpInput.value = '';
+            clearTimers();
+            clearMessages();
+            updateOtpUI();
+        }
+
+        // Event Handler: Send OTP Button Click (Task 5.1)
+        sendOtpBtn.addEventListener('click', async () => {
+            const email = registerEmail.value.trim();
+            
+            // Validate email format
+            const emailValidation = validateEmail(email);
+            if (!emailValidation.valid) {
+                showErrorMessage(emailValidation.message);
+                return;
+            }
+            
+            // Clear previous messages
+            clearMessages();
+            
+            // Show loading state
+            otpState.isLoading = true;
+            updateOtpUI();
+            
+            try {
+                // Call sendOTP API function with retry logic
+                const response = await sendOTP(email, true);
+                
+                // Handle success
+                otpState.email = email;
+                otpState.otpSent = true;
+                showSuccessMessage(response.message || 'OTP sent to your email');
+                
+                // Start timers
+                startResendTimer();
+                if (response.expiresAt) {
+                    startExpirationTimer(response.expiresAt);
+                }
+                
+                // Update UI to show OTP input
+                updateOtpUI();
+                
+                // Focus on OTP input
+                setTimeout(() => otpInput.focus(), 100);
+                
+            } catch (error) {
+                // Handle errors with retry option for transient failures
+                const isTransient = error.code && (
+                    error.code.includes('TIMEOUT') || 
+                    error.code.includes('NETWORK') || 
+                    error.code.includes('CONNECTION') ||
+                    error.code === 'INTERNAL_ERROR'
+                );
+                
+                if (isTransient) {
+                    showErrorMessage(
+                        error.message || 'Failed to send OTP. Please try again',
+                        true,
+                        () => sendOtpBtn.click()
+                    );
+                } else {
+                    showErrorMessage(error.message || 'Failed to send OTP. Please try again');
+                }
+                
+                otpState.isLoading = false;
+                updateOtpUI();
+            }
+        });
+
+        // Event Handler: OTP Input with Auto-Verification (Task 5.2)
+        otpInput.addEventListener('input', async (e) => {
+            const otp = e.target.value.trim();
+            
+            // Only allow numeric input
+            e.target.value = otp.replace(/[^0-9]/g, '');
+            
+            // Auto-verify when 6 digits are entered
+            if (e.target.value.length === 6) {
+                clearMessages();
+                
+                // Show loading indicator
+                otpState.isLoading = true;
+                otpInput.disabled = true;
+                
+                try {
+                    // Call verifyOTP API function with retry logic
+                    const response = await verifyOTP(otpState.email, e.target.value, true);
+                    
+                    // Handle success
+                    if (response.verified) {
+                        otpState.otpVerified = true;
+                        showSuccessMessage(response.message || 'Email verified successfully!');
+                        
+                        // Show checkmark and enable submit button
+                        updateOtpUI();
+                        
+                        // Clear timers
+                        clearTimers();
+                    }
+                    
+                } catch (error) {
+                    // Handle errors with specific feedback
+                    let errorMsg = error.message || 'Invalid OTP code. Please try again';
+                    
+                    // Add attempts remaining if available
+                    if (error.attemptsRemaining !== undefined && error.attemptsRemaining >= 0) {
+                        errorMsg += ` (${error.attemptsRemaining} attempts remaining)`;
+                    }
+                    
+                    // Check if it's an expired OTP
+                    if (error.code === 'OTP_EXPIRED') {
+                        showErrorMessage(errorMsg + '. Please request a new code.');
+                    } else if (error.code === 'OTP_NOT_FOUND') {
+                        showErrorMessage(errorMsg);
+                    } else {
+                        showErrorMessage(errorMsg);
+                    }
+                    
+                    // Allow re-entry
+                    otpInput.value = '';
+                    otpInput.disabled = false;
+                    otpInput.focus();
+                    
+                } finally {
+                    otpState.isLoading = false;
+                }
+            }
+        });
+
+        // Event Handler: Resend OTP Button Click (Task 5.3)
+        resendOtpBtn.addEventListener('click', async () => {
+            // Check cooldown timer
+            if (otpState.resendCooldown > 0) {
+                showErrorMessage(`Please wait ${otpState.resendCooldown} seconds before resending`);
+                return;
+            }
+            
+            // Clear previous messages
+            clearMessages();
+            
+            // Show loading state
+            const resendSpinner = resendOtpBtn.querySelector('.btn-spinner');
+            const resendText = resendOtpBtn.querySelector('.btn-text');
+            resendSpinner.style.display = 'inline-block';
+            resendText.style.display = 'none';
+            resendOtpBtn.disabled = true;
+            
+            try {
+                // Call resendOTP API function with retry logic
+                const response = await resendOTP(otpState.email, true);
+                
+                // Handle success
+                showSuccessMessage(response.message || 'New OTP sent to your email');
+                
+                // Reset OTP input field
+                otpInput.value = '';
+                otpInput.disabled = false;
+                otpInput.focus();
+                
+                // Restart timers
+                startResendTimer();
+                if (response.expiresAt) {
+                    startExpirationTimer(response.expiresAt);
+                }
+                
+            } catch (error) {
+                // Handle errors with retry option for transient failures
+                const isTransient = error.code && (
+                    error.code.includes('TIMEOUT') || 
+                    error.code.includes('NETWORK') || 
+                    error.code.includes('CONNECTION') ||
+                    error.code === 'INTERNAL_ERROR'
+                );
+                
+                if (isTransient) {
+                    showErrorMessage(
+                        error.message || 'Failed to resend OTP. Please try again',
+                        true,
+                        () => resendOtpBtn.click()
+                    );
+                } else {
+                    showErrorMessage(error.message || 'Failed to resend OTP. Please try again');
+                }
+                
+                resendOtpBtn.disabled = false;
+                
+            } finally {
+                // Hide loading state
+                resendSpinner.style.display = 'none';
+                resendText.style.display = 'inline-block';
+            }
+        });
+
+        // Event Handler: Change Email Link Click (Task 5.4)
+        changeEmailLink.addEventListener('click', async (e) => {
+            e.preventDefault();
+            
+            // Store the current email before clearing state
+            const currentEmail = otpState.email;
+            
+            // Clear OTP verification state
+            resetOtpState();
+            
+            // Re-enable email input field
+            registerEmail.disabled = false;
+            registerEmail.focus();
+            
+            // Hide OTP input field and related elements
+            otpSection.style.display = 'none';
+            changeEmailLink.style.display = 'none';
+            emailVerifiedIcon.style.display = 'none';
+            
+            // Show send OTP button again
+            sendOtpBtn.style.display = 'inline-block';
+            sendOtpBtn.disabled = false;
+            
+            // Clear messages
+            clearMessages();
+            
+            // Invalidate backend OTP (Requirement 7.3)
+            // The backend automatically invalidates old OTPs when a new one is sent
+            // or when they expire, so we just need to ensure the frontend state is cleared
+            if (currentEmail) {
+                await invalidateOTP(currentEmail);
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateOtpUI();
+        });
+    </script>
+</body>
+</html>

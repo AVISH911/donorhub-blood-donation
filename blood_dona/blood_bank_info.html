@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Banks - DonorHub</title>
+        <link rel="stylesheet" href="../css/blood_bank_info.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="../css/custom-alerts.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html" class="active">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-hospital"></i> Blood Bank Directory</h1>
+            <p>Find verified blood banks with contact information and real-time blood stock availability</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Emergency Section -->
+        <div class="emergency-section">
+            <div class="emergency-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Emergency Blood Needs</h3>
+            </div>
+            <p style="margin-bottom: 15px;">If you need blood urgently, contact these emergency helplines:</p>
+            <div class="emergency-contacts">
+                <div class="emergency-contact">
+                    <i class="fas fa-phone-alt"></i>
+                    <div>
+                        <div style="font-weight: 600;">National Blood Helpline</div>
+                        <div>1-800-BLOOD-HELP</div>
+                    </div>
+                </div>
+                <div class="emergency-contact">
+                    <i class="fas fa-ambulance"></i>
+                    <div>
+                        <div style="font-weight: 600;">Emergency Services</div>
+                        <div>911</div>
+                    </div>
+                </div>
+                <div class="emergency-contact">
+                    <i class="fas fa-first-aid"></i>
+                    <div>
+                        <div style="font-weight: 600;">Red Cross Emergency</div>
+                        <div>1-800-RED-CROSS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Blood Bank Button -->
+        <div style="margin-bottom: 20px; text-align: right;">
+            <button class="btn btn-primary" id="addBloodBankBtn" style="display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-plus"></i> Add Blood Bank
+            </button>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="search-filters">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="Search for blood banks by name or location...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="cityFilter">Filter by City</label>
+                    <select id="cityFilter">
+                        <option value="">All Cities</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="bloodType">Blood Type</label>
+                    <select id="bloodType">
+                        <option value="">All Blood Types</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="availability">Stock Availability</label>
+                    <select id="availability">
+                        <option value="">Any Availability</option>
+                        <option value="available">Available</option>
+                        <option value="low">Low Stock</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blood Banks Grid -->
+        <div class="blood-banks-grid" id="bloodBanksContainer">
+            <!-- Blood bank cards will be dynamically loaded here -->
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2 style="margin-bottom: 20px;">Blood Banks Location Map</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Interactive map showing blood bank locations</p>
+                    <p><small>(Google Maps integration would be implemented here)</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 30px;">Blood Bank Network Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-hospital"></i>
+                    <h3>128</h3>
+                    <p>Verified Blood Banks</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>15,842</h3>
+                    <p>Units Available</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-syringe"></i>
+                    <h3>42,156</h3>
+                    <p>Monthly Donations</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>126,468</h3>
+                    <p>Lives Saved This Year</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Blood Bank Form Modal -->
+    <div class="modal" id="addBloodBankModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAddModal">&times;</span>
+            <div class="modal-header">
+                <div>
+                    <h2>Add New Blood Bank</h2>
+                    <p style="color: var(--gray); font-size: 14px; margin-top: 5px;">Enter blood bank information and current stock levels</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id="addBloodBankForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <label for="bankName" style="display: block; margin-bottom: 5px; font-weight: 500;">Blood Bank Name *</label>
+                            <input type="text" id="bankName" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div>
+                            <label for="bankCity" style="display: block; margin-bottom: 5px; font-weight: 500;">City *</label>
+                            <input type="text" id="bankCity" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label for="bankAddress" style="display: block; margin-bottom: 5px; font-weight: 500;">Address *</label>
+                        <input type="text" id="bankAddress" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div>
+                            <label for="bankPhone" style="display: block; margin-bottom: 5px; font-weight: 500;">Phone *</label>
+                            <input type="tel" id="bankPhone" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                        <div>
+                            <label for="bankEmail" style="display: block; margin-bottom: 5px; font-weight: 500;">Email *</label>
+                            <input type="email" id="bankEmail" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        </div>
+                    </div>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #eee;">Blood Stock Levels (Units)</h3>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">
+                            <div>
+                                <label for="stockAPos" style="display: block; margin-bottom: 5px; font-weight: 500;">A+</label>
+                                <input type="number" id="stockAPos" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockANeg" style="display: block; margin-bottom: 5px; font-weight: 500;">A-</label>
+                                <input type="number" id="stockANeg" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockBPos" style="display: block; margin-bottom: 5px; font-weight: 500;">B+</label>
+                                <input type="number" id="stockBPos" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockBNeg" style="display: block; margin-bottom: 5px; font-weight: 500;">B-</label>
+                                <input type="number" id="stockBNeg" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockOPos" style="display: block; margin-bottom: 5px; font-weight: 500;">O+</label>
+                                <input type="number" id="stockOPos" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockONeg" style="display: block; margin-bottom: 5px; font-weight: 500;">O-</label>
+                                <input type="number" id="stockONeg" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockABPos" style="display: block; margin-bottom: 5px; font-weight: 500;">AB+</label>
+                                <input type="number" id="stockABPos" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <div>
+                                <label for="stockABNeg" style="display: block; margin-bottom: 5px; font-weight: 500;">AB-</label>
+                                <input type="number" id="stockABNeg" min="0" value="0" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <button type="button" class="btn btn-outline" id="cancelAddBtn">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Blood Bank
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blood Bank Detail Modal -->
+    <div class="modal" id="bloodBankModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalBankName">City General Hospital Blood Bank</h2>
+                    <div class="blood-bank-type">
+                        <i class="fas fa-stethoscope"></i>
+                        <span id="modalBankType">Hospital Blood Bank</span>
+                    </div>
+                </div>
+                <div class="verification-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Verified</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="blood-bank-info-grid">
+                    <div>
+                        <div class="info-section">
+                            <h3><i class="fas fa-info-circle"></i> Basic Information</h3>
+                            <div class="info-details">
+                                <div class="info-detail">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Address</div>
+                                        <div id="modalBankAddress">123 Medical Center Drive, Health City, HC 12345</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-phone-alt"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Phone</div>
+                                        <div id="modalBankPhone">(555) 123-4567</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Email</div>
+                                        <div id="modalBankEmail">bloodbank@citygeneral.org</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-globe"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Website</div>
+                                        <div id="modalBankWebsite">www.citygeneral.org/bloodbank</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3><i class="fas fa-clock"></i> Operating Hours</h3>
+                            <div class="blood-bank-hours">
+                                <div class="hours-list" id="modalBankHours">
+                                    <!-- Hours will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3><i class="fas fa-notes-medical"></i> Services</h3>
+                            <div class="info-details">
+                                <div class="info-detail">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <div>Whole Blood Donation</div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <div>Platelet Donation</div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <div>Plasma Donation</div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <div>Blood Testing</div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                                    <div>Emergency Blood Supply</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="info-section">
+                            <h3><i class="fas fa-tint"></i> Blood Stock Availability</h3>
+                            <div class="blood-stock-details" id="modalBloodStock">
+                                <!-- Blood stock will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3><i class="fas fa-user-md"></i> Contact Person</h3>
+                            <div class="info-details">
+                                <div class="info-detail">
+                                    <i class="fas fa-user"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Name</div>
+                                        <div id="modalContactName">Dr. Sarah Johnson</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-phone"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Direct Line</div>
+                                        <div id="modalContactPhone">(555) 123-4567 ext. 234</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-envelope"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Email</div>
+                                        <div id="modalContactEmail">s.johnson@citygeneral.org</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h3><i class="fas fa-directions"></i> Getting There</h3>
+                            <div class="info-details">
+                                <div class="info-detail">
+                                    <i class="fas fa-subway"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Public Transport</div>
+                                        <div>Take the Blue Line to Medical Center Station</div>
+                                    </div>
+                                </div>
+                                <div class="info-detail">
+                                    <i class="fas fa-car"></i>
+                                    <div>
+                                        <div style="font-weight: 600;">Parking</div>
+                                        <div>Free parking available in the hospital garage</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="blood-bank-actions" style="margin-top: 30px;">
+                    <button class="btn btn-primary" onclick="alert('Opening Google Maps... (Feature coming soon)')"><i class="fas fa-directions"></i> Get Directions</button>
+                    <button class="btn btn-outline" onclick="alert('Calling blood bank... (Feature coming soon)')"><i class="fas fa-phone"></i> Call Now</button>
+                    <button class="btn btn-outline" onclick="if(navigator.share){navigator.share({title:'Blood Bank',text:'Check out this blood bank'}).catch(()=>alert('Share cancelled'))}else{alert('Sharing... (Feature coming soon)')}"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="blood-camps.html">Blood Camps</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@DonorHub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Store loaded blood banks globally
+        let allBloodBanks = [];
+        
+        // Sample data for blood banks (fallback if API fails)
+        const bloodBanksData = [
+            {
+                id: 1,
+                name: "City General Hospital Blood Bank",
+                type: "Hospital Blood Bank",
+                address: "123 Medical Center Drive, Health City, HC 12345",
+                phone: "(555) 123-4567",
+                email: "bloodbank@citygeneral.org",
+                website: "www.citygeneral.org/bloodbank",
+                hours: {
+                    monday: "8:00 AM - 8:00 PM",
+                    tuesday: "8:00 AM - 8:00 PM",
+                    wednesday: "8:00 AM - 8:00 PM",
+                    thursday: "8:00 AM - 8:00 PM",
+                    friday: "8:00 AM - 6:00 PM",
+                    saturday: "9:00 AM - 4:00 PM",
+                    sunday: "Closed"
+                },
+                contactPerson: {
+                    name: "Dr. Sarah Johnson",
+                    phone: "(555) 123-4567 ext. 234",
+                    email: "s.johnson@citygeneral.org"
+                },
+                bloodStock: {
+                    "A+": "available",
+                    "A-": "low",
+                    "B+": "available",
+                    "B-": "critical",
+                    "O+": "available",
+                    "O-": "low",
+                    "AB+": "available",
+                    "AB-": "unknown"
+                },
+                services: ["Whole Blood Donation", "Platelet Donation", "Plasma Donation", "Blood Testing", "Emergency Blood Supply"],
+                location: "new-york"
+            },
+            {
+                id: 2,
+                name: "Red Cross Blood Center",
+                type: "Community Blood Center",
+                address: "456 DonorHub Avenue, Hope City, HC 67890",
+                phone: "(555) 987-6543",
+                email: "donate@redcrosslocal.org",
+                website: "www.redcross.org/local",
+                hours: {
+                    monday: "7:00 AM - 7:00 PM",
+                    tuesday: "7:00 AM - 7:00 PM",
+                    wednesday: "7:00 AM - 7:00 PM",
+                    thursday: "7:00 AM - 7:00 PM",
+                    friday: "7:00 AM - 5:00 PM",
+                    saturday: "8:00 AM - 4:00 PM",
+                    sunday: "10:00 AM - 2:00 PM"
+                },
+                contactPerson: {
+                    name: "Michael Rodriguez",
+                    phone: "(555) 987-6543 ext. 112",
+                    email: "m.rodriguez@redcross.org"
+                },
+                bloodStock: {
+                    "A+": "low",
+                    "A-": "available",
+                    "B+": "available",
+                    "B-": "available",
+                    "O+": "critical",
+                    "O-": "critical",
+                    "AB+": "available",
+                    "AB-": "available"
+                },
+                services: ["Whole Blood Donation", "Platelet Donation", "Plasma Donation", "Blood Drives", "Mobile Donation Units"],
+                location: "los-angeles"
+            },
+            {
+                id: 3,
+                name: "Community Blood Services",
+                type: "Independent Blood Bank",
+                address: "789 Donor Plaza, Care City, CC 54321",
+                phone: "(555) 456-7890",
+                email: "info@communityblood.org",
+                website: "www.communityblood.org",
+                hours: {
+                    monday: "9:00 AM - 5:00 PM",
+                    tuesday: "9:00 AM - 5:00 PM",
+                    wednesday: "9:00 AM - 5:00 PM",
+                    thursday: "9:00 AM - 5:00 PM",
+                    friday: "9:00 AM - 5:00 PM",
+                    saturday: "10:00 AM - 2:00 PM",
+                    sunday: "Closed"
+                },
+                contactPerson: {
+                    name: "Jennifer Lee",
+                    phone: "(555) 456-7890 ext. 556",
+                    email: "j.lee@communityblood.org"
+                },
+                bloodStock: {
+                    "A+": "available",
+                    "A-": "available",
+                    "B+": "low",
+                    "B-": "available",
+                    "O+": "available",
+                    "O-": "available",
+                    "AB+": "low",
+                    "AB-": "available"
+                },
+                services: ["Whole Blood Donation", "Plasma Donation", "Blood Testing", "Community Education"],
+                location: "chicago"
+            },
+            {
+                id: 4,
+                name: "University Medical Center Blood Bank",
+                type: "Teaching Hospital Blood Bank",
+                address: "321 Campus Drive, University City, UC 13579",
+                phone: "(555) 246-8135",
+                email: "bloodbank@umc.edu",
+                website: "www.umc.edu/bloodbank",
+                hours: {
+                    monday: "7:30 AM - 9:00 PM",
+                    tuesday: "7:30 AM - 9:00 PM",
+                    wednesday: "7:30 AM - 9:00 PM",
+                    thursday: "7:30 AM - 9:00 PM",
+                    friday: "7:30 AM - 6:00 PM",
+                    saturday: "8:00 AM - 4:00 PM",
+                    sunday: "Closed"
+                },
+                contactPerson: {
+                    name: "Dr. Robert Chen",
+                    phone: "(555) 246-8135 ext. 778",
+                    email: "r.chen@umc.edu"
+                },
+                bloodStock: {
+                    "A+": "available",
+                    "A-": "low",
+                    "B+": "available",
+                    "B-": "critical",
+                    "O+": "available",
+                    "O-": "low",
+                    "AB+": "available",
+                    "AB-": "unknown"
+                },
+                services: ["Whole Blood Donation", "Platelet Donation", "Plasma Donation", "Research", "Medical Training"],
+                location: "houston"
+            }
+        ];
+
+        // DOM Elements
+        const bloodBanksContainer = document.getElementById('bloodBanksContainer');
+        const bloodBankModal = document.getElementById('bloodBankModal');
+        const addBloodBankModal = document.getElementById('addBloodBankModal');
+        const addBloodBankBtn = document.getElementById('addBloodBankBtn');
+        const addBloodBankForm = document.getElementById('addBloodBankForm');
+        const closeAddModal = document.getElementById('closeAddModal');
+        const cancelAddBtn = document.getElementById('cancelAddBtn');
+        const cityFilter = document.getElementById('cityFilter');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        // Load blood banks from API on page load
+        async function initializePage() {
+            try {
+                console.log('Initializing blood bank page...');
+                
+                // Load all blood banks
+                allBloodBanks = await loadBloodBanks();
+                
+                console.log('Loaded blood banks:', allBloodBanks);
+                console.log('Number of blood banks:', allBloodBanks.length);
+                
+                // Display blood banks
+                displayBloodBanks(allBloodBanks);
+                
+                // Populate city filter
+                populateCityFilter(allBloodBanks);
+                
+            } catch (error) {
+                console.error('Failed to initialize page:', error);
+                showErrorMessage('Failed to load blood banks. Please refresh the page.');
+            }
+        }
+
+        // Populate city filter dropdown with unique cities
+        function populateCityFilter(banks) {
+            const cities = [...new Set(banks.map(bank => bank.city))].sort();
+            
+            cityFilter.innerHTML = '<option value="">All Cities</option>';
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                cityFilter.appendChild(option);
+            });
+        }
+
+        // Apply filters to blood banks
+        function applyFilters() {
+            const cityValue = cityFilter.value.toLowerCase();
+            const searchValue = searchInput.value.toLowerCase();
+            
+            let filteredBanks = allBloodBanks;
+            
+            // Filter by city
+            if (cityValue) {
+                filteredBanks = filteredBanks.filter(bank => 
+                    bank.city.toLowerCase() === cityValue
+                );
+            }
+            
+            // Filter by search term
+            if (searchValue) {
+                filteredBanks = filteredBanks.filter(bank => 
+                    bank.name.toLowerCase().includes(searchValue) ||
+                    bank.address.toLowerCase().includes(searchValue) ||
+                    bank.city.toLowerCase().includes(searchValue)
+                );
+            }
+            
+            displayBloodBanks(filteredBanks);
+        }
+
+        // Handle form submission
+        addBloodBankForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                // Show loading state
+                const submitBtn = addBloodBankForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                
+                // Collect form data
+                const formData = collectBloodBankFormData();
+                
+                // Submit to API
+                const response = await submitBloodBank(formData);
+                
+                // Show success message
+                showSuccessMessage('Blood bank added successfully!');
+                
+                // Close modal and reset form
+                addBloodBankModal.style.display = 'none';
+                addBloodBankForm.reset();
+                
+                // Reload blood banks
+                await initializePage();
+                
+                // Restore button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                
+            } catch (error) {
+                console.error('Error submitting blood bank:', error);
+                showErrorMessage(handleApiError(error));
+                
+                // Restore button
+                const submitBtn = addBloodBankForm.querySelector('button[type="submit"]');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Blood Bank';
+            }
+        });
+
+        // Open add blood bank modal
+        addBloodBankBtn.addEventListener('click', () => {
+            addBloodBankModal.style.display = 'flex';
+        });
+
+        // Close add blood bank modal
+        closeAddModal.addEventListener('click', () => {
+            addBloodBankModal.style.display = 'none';
+            addBloodBankForm.reset();
+        });
+
+        cancelAddBtn.addEventListener('click', () => {
+            addBloodBankModal.style.display = 'none';
+            addBloodBankForm.reset();
+        });
+
+        // City filter change event
+        cityFilter.addEventListener('change', applyFilters);
+
+        // Search functionality
+        searchBtn.addEventListener('click', applyFilters);
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                applyFilters();
+            }
+        });
+
+        // Render blood banks (legacy function for compatibility)
+        function renderBloodBanks() {
+            bloodBanksContainer.innerHTML = '';
+            
+            bloodBanksData.forEach(bank => {
+                const bankCard = document.createElement('div');
+                bankCard.className = 'blood-bank-card';
+                bankCard.innerHTML = `
+                    <div class="blood-bank-header">
+                        <div>
+                            <div class="blood-bank-name">${bank.name}</div>
+                            <div class="blood-bank-type">
+                                <i class="fas fa-stethoscope"></i>
+                                <span>${bank.type}</span>
+                            </div>
+                        </div>
+                        <div class="verification-badge">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verified</span>
+                        </div>
+                    </div>
+                    <div class="blood-bank-content">
+                        <div class="blood-bank-details">
+                            <div class="blood-bank-detail">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>${bank.address}</span>
+                            </div>
+                            <div class="blood-bank-detail">
+                                <i class="fas fa-phone-alt"></i>
+                                <span>${bank.phone}</span>
+                            </div>
+                            <div class="blood-bank-detail">
+                                <i class="fas fa-clock"></i>
+                                <span>Open today: ${bank.hours.monday}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="blood-stock">
+                            <div class="stock-title">Current Blood Stock</div>
+                            <div class="blood-groups-grid">
+                                ${Object.entries(bank.bloodStock).map(([group, status]) => `
+                                    <div class="blood-group-stock stock-${status}">
+                                        <div>${group}</div>
+                                        <div>${status.charAt(0).toUpperCase() + status.slice(1)}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="blood-bank-actions">
+                            <button class="btn btn-primary view-details-btn" data-bank-id="${bank.id}">View Details</button>
+                            <button class="btn btn-outline">Get Directions</button>
+                        </div>
+                    </div>
+                `;
+                bloodBanksContainer.appendChild(bankCard);
+            });
+            
+            // Add event listeners to view details buttons
+            document.querySelectorAll('.view-details-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const bankId = btn.getAttribute('data-bank-id');
+                    openBloodBankModal(bankId);
+                });
+            });
+        }
+
+        // Open blood bank modal
+        function openBloodBankModal(bankId) {
+            const bank = bloodBanksData.find(b => b.id == bankId);
+            if (!bank) return;
+            
+            // Populate modal with bank data
+            document.getElementById('modalBankName').textContent = bank.name;
+            document.getElementById('modalBankType').textContent = bank.type;
+            document.getElementById('modalBankAddress').textContent = bank.address;
+            document.getElementById('modalBankPhone').textContent = bank.phone;
+            document.getElementById('modalBankEmail').textContent = bank.email;
+            document.getElementById('modalBankWebsite').textContent = bank.website;
+            
+            // Populate hours
+            const hoursContainer = document.getElementById('modalBankHours');
+            hoursContainer.innerHTML = '';
+            Object.entries(bank.hours).forEach(([day, hours]) => {
+                const dayElement = document.createElement('div');
+                dayElement.innerHTML = `
+                    <span>${day.charAt(0).toUpperCase() + day.slice(1)}:</span>
+                    <span>${hours}</span>
+                `;
+                hoursContainer.appendChild(dayElement);
+            });
+            
+            // Populate blood stock
+            const stockContainer = document.getElementById('modalBloodStock');
+            stockContainer.innerHTML = '';
+            Object.entries(bank.bloodStock).forEach(([group, status]) => {
+                const stockItem = document.createElement('div');
+                stockItem.className = `blood-stock-item stock-${status}`;
+                stockItem.innerHTML = `
+                    <div class="blood-group">${group}</div>
+                    <div class="stock-status">${status.charAt(0).toUpperCase() + status.slice(1)}</div>
+                `;
+                stockContainer.appendChild(stockItem);
+            });
+            
+            // Populate contact person
+            document.getElementById('modalContactName').textContent = bank.contactPerson.name;
+            document.getElementById('modalContactPhone').textContent = bank.contactPerson.phone;
+            document.getElementById('modalContactEmail').textContent = bank.contactPerson.email;
+            
+            bloodBankModal.style.display = 'flex';
+        }
+
+        // Close modal
+        function closeBloodBankModal() {
+            bloodBankModal.style.display = 'none';
+        }
+
+        // Modal events
+        const closeModal = document.querySelector('#bloodBankModal .close-modal');
+        if (closeModal) {
+            closeModal.addEventListener('click', closeBloodBankModal);
+        }
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === bloodBankModal) {
+                closeBloodBankModal();
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = 
+                navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Close modals when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === bloodBankModal) {
+                closeBloodBankModal();
+            }
+            if (e.target === addBloodBankModal) {
+                addBloodBankModal.style.display = 'none';
+                addBloodBankForm.reset();
+            }
+        });
+    </script>
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/blood-bank-api.js"></script>
+    <script src="../js/frontend-api.js"></script>
+    <script src="../js/custom-alerts.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+<script>
+// Protect this page - require login
+if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') !== 'true') {
+    alert('🔒 Please login first to view blood banks');
+    window.location.href = 'index.html';
+} else {
+    // Show logout button
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+    
+    // Initialize page after all scripts are loaded and user is authenticated
+    console.log('User authenticated, initializing page...');
+    if (typeof initializePage === 'function') {
+        initializePage();
+    } else {
+        console.error('initializePage function not found!');
+    }
+}
+
+// Logout functionality with custom alerts
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    const confirmed = await customConfirm('Are you sure you want to logout?');
+    if (confirmed) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userType');
+        localStorage.removeItem('user');
+        await customAlert('Logged out successfully!');
+        window.location.href = 'index.html';
+    }
+});
+</script>
+</body>
+</html>

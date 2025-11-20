@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Blood Donors - DonorHub</title>
+        <link rel="stylesheet" href="../css/find_donor.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html" class="active">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container search-container">
+            <div class="search-title">
+                <h2>Find Blood Donors</h2>
+                <p>Search for available blood donors in your area</p>
+            </div>
+            
+            <div class="search-form">
+                <form id="donorSearchForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bloodGroup">Blood Group</label>
+                            <select id="bloodGroup" class="form-control" required>
+                                <option value="">Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Location</label>
+                            <input type="text" id="location" class="form-control" placeholder="Enter city or area" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="distance">Distance (km)</label>
+                            <select id="distance" class="form-control">
+                                <option value="5">Within 5 km</option>
+                                <option value="10" selected>Within 10 km</option>
+                                <option value="25">Within 25 km</option>
+                                <option value="50">Within 50 km</option>
+                                <option value="100">Within 100 km</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="availability">Availability</label>
+                            <select id="availability" class="form-control">
+                                <option value="all">All Donors</option>
+                                <option value="available">Available Now</option>
+                                <option value="week">Available This Week</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i> Search Donors
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donors Section -->
+    <section class="donors-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Available Donors</h2>
+                <p>These donors match your search criteria</p>
+            </div>
+            
+            <div class="filter-bar">
+                <div class="results-count">
+                    Showing <span id="resultsCount">12</span> donors
+                </div>
+                
+                <div class="sort-options">
+                    <label for="sortBy">Sort by: </label>
+                    <select id="sortBy">
+                        <option value="distance">Distance</option>
+                        <option value="recent">Most Recent</option>
+                        <option value="availability">Availability</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="donors-grid" id="donorsGrid">
+                <!-- Donor cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="#">Blood Camps</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@donorhub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- API Integration Scripts -->
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/frontend-api.js"></script>
+    
+    <script>
+        // Protect this page - require login
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Find Donor page loaded');
+            
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            console.log('🔐 Authentication check:', isLoggedIn);
+            
+            if (!isLoggedIn || isLoggedIn !== 'true') {
+                console.log('❌ Not logged in - redirecting');
+                alert('🔒 Please login first to search for donors');
+                window.location.href = '../index.html';
+                return;
+            }
+            
+            console.log('✅ User is logged in');
+            
+            // Check if search form exists
+            const searchForm = document.getElementById('donorSearchForm');
+            console.log('📋 Search form:', searchForm ? 'FOUND' : 'NOT FOUND');
+            
+            // Check if functions are available
+            console.log('🔧 Function availability:');
+            console.log('  - searchDonors:', typeof searchDonors !== 'undefined');
+            console.log('  - loadAllDonors:', typeof loadAllDonors !== 'undefined');
+            console.log('  - handleSearchSubmit:', typeof handleSearchSubmit !== 'undefined');
+        });
+    </script>
+<script>
+// Show logout button if user is logged in
+if (localStorage.getItem('isLoggedIn') === 'true') {
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+}
+
+// Logout functionality
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userType');
+        alert('Logged out successfully!');
+        window.location.href = '../index.html';
+    }
+});
+
+// Mobile menu toggle
+document.querySelector('.mobile-menu')?.addEventListener('click', () => {
+    const navLinks = document.querySelector('.nav-links');
+    if (navLinks.style.display === 'flex') {
+        navLinks.style.display = 'none';
+    } else {
+        navLinks.style.display = 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '60px';
+        navLinks.style.right = '20px';
+        navLinks.style.backgroundColor = 'white';
+        navLinks.style.padding = '20px';
+        navLinks.style.borderRadius = '8px';
+        navLinks.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+        navLinks.style.zIndex = '1000';
+    }
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+    const navLinks = document.querySelector('.nav-links');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    if (mobileMenu && navLinks && !mobileMenu.contains(e.target) && !navLinks.contains(e.target)) {
+        if (window.innerWidth <= 992) {
+            navLinks.style.display = 'none';
+        }
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Camps - DonorHub</title>
+        <link rel="stylesheet" href="../css/blood_donation_camp.css">
+    <link rel="stylesheet" href="../css/otp-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tint"></i>
+                <h1>DonorHub</h1>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="find_donor.html">Find Donors</a></li>
+                <li><a href="blood_request.html">Request Blood</a></li>
+                <li><a href="donor.html">Register as Donor</a></li>
+                <li><a href="blood_bank_info.html">Blood Banks</a></li>
+                <li><a href="blood_donation_camp.html" class="active">Blood Camps</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a href="education.html">Education</a></li>
+                <li><a href="about.html">About Us</a></li>
+            </ul>
+            
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="logoutBtn" style="display: none;">Logout</button>
+            </div>
+            
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h1><i class="fas fa-hospital-alt"></i> Blood Donation Camps</h1>
+                    <p>Find and register for upcoming blood donation camps in your area</p>
+                </div>
+                <button class="btn btn-primary" id="createCampBtn" style="white-space: nowrap;">
+                    <i class="fas fa-plus"></i> Create Camp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="upcoming">Upcoming Camps</div>
+            <div class="tab" data-tab="ongoing">Ongoing Camps</div>
+            <div class="tab" data-tab="past">Past Camps</div>
+        </div>
+
+        <!-- Search and Filters -->
+        <div class="search-filters">
+            <div class="search-bar">
+                <input type="text" placeholder="Search for blood donation camps...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">All Locations</option>
+                        <option value="new-york">New York</option>
+                        <option value="los-angeles">Los Angeles</option>
+                        <option value="chicago">Chicago</option>
+                        <option value="houston">Houston</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="date">Date</label>
+                    <select id="date">
+                        <option value="">Any Date</option>
+                        <option value="this-week">This Week</option>
+                        <option value="this-month">This Month</option>
+                        <option value="next-month">Next Month</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="organizer">Organizer</label>
+                    <select id="organizer">
+                        <option value="">All Organizers</option>
+                        <option value="red-cross">Red Cross</option>
+                        <option value="local-hospital">Local Hospital</option>
+                        <option value="community-center">Community Center</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Camps Grid -->
+        <div class="camps-grid" id="campsContainer">
+            <!-- Camp cards will be dynamically loaded here -->
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2 style="margin-bottom: 20px;">Camps Location Map</h2>
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <p>Interactive map showing blood donation camp locations</p>
+                    <p><small>(Google Maps integration would be implemented here)</small></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats-section">
+            <h2 style="text-align: center; margin-bottom: 30px;">Blood Donation Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-campground"></i>
+                    <h3>156</h3>
+                    <p>Camps Organized</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3>8,742</h3>
+                    <p>Total Donors</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-tint"></i>
+                    <h3>12,458</h3>
+                    <p>Units Collected</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>37,374</h3>
+                    <p>Lives Saved</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Camp Modal -->
+    <div class="modal" id="createCampModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeCreateCampModal">&times;</span>
+            <div class="modal-header">
+                <h2>Create Blood Donation Camp</h2>
+            </div>
+            <div class="modal-body">
+                <form id="createCampForm">
+                    <div class="form-group">
+                        <label for="campTitle">Camp Title <span style="color: red;">*</span></label>
+                        <input type="text" id="campTitle" class="form-control" required placeholder="e.g., Community Blood Drive - Central Park">
+                    </div>
+                    <div class="form-group">
+                        <label for="campOrganizer">Organizer <span style="color: red;">*</span></label>
+                        <input type="text" id="campOrganizer" class="form-control" required placeholder="e.g., Red Cross">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campDate">Date <span style="color: red;">*</span></label>
+                            <input type="date" id="campDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="campTime">Time</label>
+                            <input type="text" id="campTime" class="form-control" placeholder="e.g., 9:00 AM - 4:00 PM">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="campLocation">Location <span style="color: red;">*</span></label>
+                        <input type="text" id="campLocation" class="form-control" required placeholder="e.g., Central Park Community Center">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="campCity">City <span style="color: red;">*</span></label>
+                            <input type="text" id="campCity" class="form-control" required placeholder="e.g., New York">
+                        </div>
+                        <div class="form-group">
+                            <label for="campTargetDonors">Target Donors <span style="color: red;">*</span></label>
+                            <input type="number" id="campTargetDonors" class="form-control" required min="1" placeholder="e.g., 100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="campDescription">Description</label>
+                        <textarea id="campDescription" class="form-control" rows="3" placeholder="Additional details about the camp..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelCreateCamp">Cancel</button>
+                <button class="btn btn-primary" id="submitCreateCamp">Create Camp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2>Register for Blood Donation Camp</h2>
+            </div>
+            <div class="modal-body">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="campName">Camp Name</label>
+                        <input type="text" id="campName" class="form-control" readonly>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="bloodType">Blood Type</label>
+                        <select id="bloodType" class="form-control" required>
+                            <option value="">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="previousDonation">Previous Blood Donation</label>
+                        <select id="previousDonation" class="form-control" required>
+                            <option value="">Select Option</option>
+                            <option value="yes">Yes, I've donated before</option>
+                            <option value="no">No, this is my first time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required> I confirm that I meet all donor eligibility requirements
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancelRegistration">Cancel</button>
+                <button class="btn btn-primary" id="submitRegistration">Register Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <h3>DonorHub</h3>
+                    <p>Connecting blood donors with those in need. Your donation can save lives.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Find Donors</a></li>
+                        <li><a href="#">Blood Banks</a></li>
+                        <li><a href="#">Blood Camps</a></li>
+                        <li><a href="#">Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Donor Eligibility</a></li>
+                        <li><a href="#">Blood Donation Process</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Health Street, Medical City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@DonorHub.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 DonorHub Blood Donation Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Legacy sample data (will be replaced by API data)
+        const campsData = [
+            {
+                id: 1,
+                title: "Community Blood Drive - Central Park",
+                organizer: "Red Cross",
+                date: "2023-10-15",
+                time: "9:00 AM - 4:00 PM",
+                location: "Central Park, New York",
+                donorsRegistered: 124,
+                targetDonors: 200,
+                status: "upcoming",
+                image: "url('https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            },
+            {
+                id: 2,
+                title: "City Hospital Annual Blood Donation",
+                organizer: "City General Hospital",
+                date: "2023-10-20",
+                time: "8:00 AM - 6:00 PM",
+                location: "City General Hospital, Los Angeles",
+                donorsRegistered: 89,
+                targetDonors: 150,
+                status: "upcoming",
+                image: "url('https://images.unsplash.com/photo-1584467735871-8db9ac8d0288?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            },
+            {
+                id: 3,
+                title: "University Campus Blood Drive",
+                organizer: "State University",
+                date: "2023-10-25",
+                time: "10:00 AM - 5:00 PM",
+                location: "Student Union Building, Chicago",
+                donorsRegistered: 67,
+                targetDonors: 120,
+                status: "upcoming",
+                image: "url('https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            },
+            {
+                id: 4,
+                title: "Corporate Blood Donation Camp",
+                organizer: "Tech Solutions Inc.",
+                date: "2023-10-12",
+                time: "9:00 AM - 3:00 PM",
+                location: "Tech Solutions HQ, Houston",
+                donorsRegistered: 45,
+                targetDonors: 80,
+                status: "ongoing",
+                image: "url('https://images.unsplash.com/photo-1579154204601-015dbf4aa745?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            },
+            {
+                id: 5,
+                title: "Emergency Blood Drive for Disaster Relief",
+                organizer: "Disaster Response Team",
+                date: "2023-09-28",
+                time: "8:00 AM - 6:00 PM",
+                location: "Community Center, Miami",
+                donorsRegistered: 210,
+                targetDonors: 180,
+                unitsCollected: 195,
+                status: "past",
+                image: "url('https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            },
+            {
+                id: 6,
+                title: "National Blood Donation Week",
+                organizer: "National Health Organization",
+                date: "2023-09-15",
+                time: "9:00 AM - 5:00 PM",
+                location: "Convention Center, Dallas",
+                donorsRegistered: 350,
+                targetDonors: 300,
+                unitsCollected: 325,
+                status: "past",
+                image: "url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80')"
+            }
+        ];
+
+        // DOM Elements
+        const createCampBtn = document.getElementById('createCampBtn');
+        const createCampModal = document.getElementById('createCampModal');
+        const closeCreateCampModal = document.getElementById('closeCreateCampModal');
+        const cancelCreateCamp = document.getElementById('cancelCreateCamp');
+        const submitCreateCamp = document.getElementById('submitCreateCamp');
+        const createCampForm = document.getElementById('createCampForm');
+        const locationFilter = document.getElementById('location');
+        
+        const registrationModal = document.getElementById('registrationModal');
+        const closeModal = document.querySelector('.close-modal');
+        const cancelRegistration = document.getElementById('cancelRegistration');
+        const submitRegistration = document.getElementById('submitRegistration');
+        const registrationForm = document.getElementById('registrationForm');
+        const campNameInput = document.getElementById('campName');
+
+        // Store all camps for filtering
+        let allCamps = [];
+        let currentFilter = 'upcoming'; // Default tab
+
+        // Load camps on page load
+        async function initializeCamps() {
+            try {
+                console.log('🔄 Loading camps from database...');
+                const campsResponse = await loadCamps();
+                console.log('📦 Camps response:', campsResponse);
+                
+                // Handle different response formats
+                allCamps = Array.isArray(campsResponse) ? campsResponse : (campsResponse?.data || campsResponse?.camps || []);
+                console.log('✅ Loaded', allCamps.length, 'camps');
+                
+                // Log camp dates for debugging
+                allCamps.forEach(camp => {
+                    console.log(`   📅 Camp: "${camp.title}" - Date: ${new Date(camp.date).toDateString()}`);
+                });
+                
+                // Filter and display by current tab
+                filterCampsByStatus(currentFilter);
+            } catch (error) {
+                const errorMessage = handleApiError(error);
+                showErrorMessage(errorMessage);
+                console.error('❌ Failed to load camps:', error);
+                
+                // Show empty state with error message
+                const campsContainer = document.getElementById('campsContainer');
+                if (campsContainer) {
+                    campsContainer.innerHTML = `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--gray);">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 60px; margin-bottom: 20px; color: #ff9800;"></i>
+                            <h3>Unable to load camps</h3>
+                            <p>${errorMessage}</p>
+                            <button class="btn btn-primary" onclick="initializeCamps()" style="margin-top: 20px;">
+                                <i class="fas fa-redo"></i> Try Again
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        // Filter camps by status (upcoming, ongoing, past)
+        function filterCampsByStatus(status) {
+            currentFilter = status;
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            console.log('🔍 Filtering camps by status:', status);
+            console.log('📅 Today:', today.toDateString());
+            console.log('📦 Total camps to filter:', allCamps.length);
+
+            let filteredCamps = allCamps.filter(camp => {
+                const campDate = new Date(camp.date);
+                campDate.setHours(0, 0, 0, 0);
+
+                console.log(`   Camp: "${camp.title}" - Date: ${campDate.toDateString()}`);
+
+                if (status === 'upcoming') {
+                    const isUpcoming = campDate > today;
+                    console.log(`      Upcoming? ${isUpcoming}`);
+                    return isUpcoming;
+                } else if (status === 'ongoing') {
+                    const isOngoing = campDate.getTime() === today.getTime();
+                    console.log(`      Ongoing? ${isOngoing}`);
+                    return isOngoing;
+                } else if (status === 'past') {
+                    const isPast = campDate < today;
+                    console.log(`      Past? ${isPast}`);
+                    return isPast;
+                }
+                return true;
+            });
+
+            console.log('✅ Filtered camps:', filteredCamps.length);
+            displayCamps(filteredCamps);
+        }
+
+        // Tab click handlers
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Get the filter status from data-tab attribute
+                const status = this.getAttribute('data-tab');
+                
+                // Filter camps
+                filterCampsByStatus(status);
+            });
+        });
+
+        // Open create camp modal
+        createCampBtn.addEventListener('click', () => {
+            createCampModal.style.display = 'flex';
+        });
+
+        // Close create camp modal
+        function closeCreateCampModalFunc() {
+            createCampModal.style.display = 'none';
+            createCampForm.reset();
+        }
+
+        closeCreateCampModal.addEventListener('click', closeCreateCampModalFunc);
+        cancelCreateCamp.addEventListener('click', closeCreateCampModalFunc);
+
+        // Handle create camp form submission
+        submitCreateCamp.addEventListener('click', async () => {
+            if (!createCampForm.checkValidity()) {
+                createCampForm.reportValidity();
+                return;
+            }
+
+            // Disable button during submission
+            submitCreateCamp.disabled = true;
+            submitCreateCamp.textContent = 'Creating...';
+
+            try {
+                const formData = collectCampFormData();
+                await submitCamp(formData);
+                
+                showSuccessMessage('Camp created successfully!');
+                closeCreateCampModalFunc();
+                
+                // Reload camps to show the new one
+                await initializeCamps();
+
+            } catch (error) {
+                const errorMessage = handleApiError(error);
+                showErrorMessage(errorMessage);
+            } finally {
+                submitCreateCamp.disabled = false;
+                submitCreateCamp.textContent = 'Create Camp';
+            }
+        });
+
+        // Handle city filter change
+        locationFilter.addEventListener('change', async () => {
+            try {
+                const cityFilter = locationFilter.value;
+                console.log('🔍 Filtering by city:', cityFilter);
+                
+                const campsResponse = await loadCamps({ city: cityFilter });
+                allCamps = Array.isArray(campsResponse) ? campsResponse : (campsResponse?.data || campsResponse?.camps || []);
+                
+                console.log('✅ Filtered camps:', allCamps.length);
+                displayCamps(allCamps);
+                filterCampsByStatus(currentFilter);
+            } catch (error) {
+                const errorMessage = handleApiError(error);
+                showErrorMessage(errorMessage);
+            }
+        });
+
+        // Close registration modal
+        function closeRegistrationModal() {
+            registrationModal.style.display = 'none';
+            registrationForm.reset();
+        }
+
+        // Modal events
+        closeModal.addEventListener('click', closeRegistrationModal);
+        cancelRegistration.addEventListener('click', closeRegistrationModal);
+        
+        window.addEventListener('click', (e) => {
+            if (e.target === registrationModal) {
+                closeRegistrationModal();
+            }
+            if (e.target === createCampModal) {
+                closeCreateCampModalFunc();
+            }
+        });
+
+        // Form submission (registration modal - kept for compatibility)
+        submitRegistration.addEventListener('click', () => {
+            if (registrationForm.checkValidity()) {
+                alert('Thank you for registering! You will receive a confirmation email shortly.');
+                closeRegistrationModal();
+            } else {
+                alert('Please fill in all required fields.');
+            }
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', () => {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = 
+                navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+    </script>
+    
+    <!-- API Integration Scripts -->
+    <script src="../js/api-utils.js"></script>
+    <script src="../js/camp-api.js"></script>
+    
+    <!-- Other Scripts -->
+    <script src="../js/frontend-api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/script.js"></script>
+<script>
+// Protect this page - require login
+if (!localStorage.getItem('isLoggedIn') || localStorage.getItem('isLoggedIn') !== 'true') {
+    alert('🔒 Please login first to view blood camps');
+    window.location.href = '../index.html';
+} else {
+    // Show logout button
+    document.getElementById('logoutBtn').style.display = 'inline-block';
+    
+    // Initialize camps after all scripts are loaded and user is authenticated
+    console.log('User authenticated, initializing camps...');
+    if (typeof initializeCamps === 'function') {
+        initializeCamps();
+    } else {
+        console.error('initializeCamps function not found!');
+    }
+}
+
+// Logout functionality
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userEmail');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('userType');
+        alert('Logged out successfully!');
+        window.location.href = '../index.html';
+    }
+});
+</script>
+</body>
+</html>
