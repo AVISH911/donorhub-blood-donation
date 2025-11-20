@@ -47,6 +47,11 @@ const validateEmailConfig = () => {
 
 // Configure Nodemailer transporter with optimized settings for cloud deployment
 const createTransporter = () => {
+  // Log transporter creation for debugging
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] Creating email transporter...`);
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] SMTP Host: smtp.gmail.com:587`);
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] Auth User: ${process.env.EMAIL_USER}`);
+  
   return nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -56,21 +61,20 @@ const createTransporter = () => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD
     },
-    // Optimized connection pool settings for cloud environments
-    pool: true,
-    maxConnections: 3,
-    maxMessages: 10,
-    rateDelta: 1000,
-    rateLimit: 3,
-    // Reduced timeouts to prevent client-side timeouts
-    connectionTimeout: 20000,  // 20 seconds
-    greetingTimeout: 15000,    // 15 seconds
-    socketTimeout: 30000,      // 30 seconds
+    // Disable connection pooling for more reliable cloud deployment
+    pool: false,
+    // Maximum timeouts for cloud environments (Render free tier)
+    connectionTimeout: 120000,  // 120 seconds (2 minutes)
+    greetingTimeout: 60000,     // 60 seconds
+    socketTimeout: 120000,      // 120 seconds (2 minutes)
     // TLS security settings
     tls: {
-      rejectUnauthorized: true,
+      rejectUnauthorized: false, // More lenient for cloud environments
       minVersion: 'TLSv1.2'
-    }
+    },
+    // Additional debugging
+    debug: process.env.NODE_ENV !== 'production',
+    logger: process.env.NODE_ENV !== 'production'
   });
 };
 
@@ -185,51 +189,43 @@ const sendOTPEmail = async (email, otp) => {
       text: emailTemplate.text
     };
 
-    // Implement exponential backoff retry logic
-    // Delays: 1s, 2s, 4s for up to 3 attempts (total max time ~7 seconds)
+    // Single attempt with long timeout (no retries to avoid compounding delays)
     let lastError;
-    const maxRetries = 3;
     const startTime = Date.now();
     const maskedEmail = maskEmail(email);
     
     // Log start of email send operation with masked email
     console.log(`[${getTimestamp()}] [EMAIL SERVICE] Starting email send operation to ${maskedEmail}`);
+    console.log(`[${getTimestamp()}] [EMAIL SERVICE] Using SMTP: smtp.gmail.com:587`);
+    console.log(`[${getTimestamp()}] [EMAIL SERVICE] Timeout settings: connection=120s, socket=120s`);
     
-    for (let attempt = 1; attempt <= maxRetries; attempt++) {
-      try {
-        console.log(`[${getTimestamp()}] [EMAIL SERVICE] Attempt ${attempt}/${maxRetries} to send email to ${maskedEmail}`);
-        
-        const info = await transporter.sendMail(mailOptions);
-        const duration = Date.now() - startTime;
-        
-        // Log success with messageId and duration in milliseconds
-        console.log(`[${getTimestamp()}] [EMAIL SERVICE] ✅ Email sent successfully to ${maskedEmail} | MessageID: ${info.messageId} | Duration: ${duration}ms`);
-        
-        return {
-          success: true,
-          messageId: info.messageId
-        };
-      } catch (err) {
-        lastError = err;
-        const duration = Date.now() - startTime;
-        
-        // Log failure with error type, error code, and duration
-        console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Attempt ${attempt} failed | Email: ${maskedEmail} | Error Type: ${err.name || 'Unknown'} | Error Code: ${err.code || 'N/A'} | Duration: ${duration}ms | Message: ${err.message}`);
-        
-        // If not the last attempt, wait with exponential backoff
-        if (attempt < maxRetries) {
-          // Exponential backoff: 1s, 2s, 4s
-          const delay = Math.pow(2, attempt - 1) * 1000;
-          console.log(`[${getTimestamp()}] [EMAIL SERVICE] Waiting ${delay}ms before retry attempt ${attempt + 1}...`);
-          await new Promise(resolve => setTimeout(resolve, delay));
-        }
+    try {
+      console.log(`[${getTimestamp()}] [EMAIL SERVICE] Attempting to send email to ${maskedEmail}`);
+      
+      const info = await transporter.sendMail(mailOptions);
+      const duration = Date.now() - startTime;
+      
+      // Log success with messageId and duration in milliseconds
+      console.log(`[${getTimestamp()}] [EMAIL SERVICE] ✅ Email sent successfully to ${maskedEmail} | MessageID: ${info.messageId} | Duration: ${duration}ms`);
+      
+      return {
+        success: true,
+        messageId: info.messageId
+      };
+    } catch (err) {
+      lastError = err;
+      const duration = Date.now() - startTime;
+      
+      // Log failure with error type, error code, and duration
+      console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Email send failed | Email: ${maskedEmail} | Error Type: ${err.name || 'Unknown'} | Error Code: ${err.code || 'N/A'} | Duration: ${duration}ms | Message: ${err.message}`);
+      
+      // Log full error stack for debugging
+      if (err.stack) {
+        console.error(`[${getTimestamp()}] [EMAIL SERVICE] Error stack: ${err.stack}`);
       }
+      
+      throw lastError;
     }
-    
-    // If all retries failed, throw the last error
-    const totalDuration = Date.now() - startTime;
-    console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ All ${maxRetries} attempts failed | Email: ${maskedEmail} | Total Duration: ${totalDuration}ms`);
-    throw lastError;
   } catch (error) {
     const maskedEmail = maskEmail(email);
     
