@@ -1,22 +1,76 @@
 const nodemailer = require('nodemailer');
 
-// Configure Nodemailer transporter with better timeout and connection settings
+// Email masking function to show only first character and domain
+const maskEmail = (email) => {
+  if (!email || !email.includes('@')) {
+    return '[invalid-email]';
+  }
+  
+  const [localPart, domain] = email.split('@');
+  const maskedLocal = localPart.charAt(0) + '***';
+  return `${maskedLocal}@${domain}`;
+};
+
+// Get formatted timestamp for logs
+const getTimestamp = () => {
+  return new Date().toISOString();
+};
+
+// Validate email configuration on startup
+const validateEmailConfig = () => {
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] Validating email service configuration...`);
+  
+  // Check for required environment variables
+  const required = ['EMAIL_USER', 'EMAIL_PASSWORD'];
+  const missing = required.filter(key => !process.env[key]);
+  
+  if (missing.length > 0) {
+    console.error(`[${getTimestamp()}] [EMAIL CONFIG] ❌ Missing required environment variables: ${missing.join(', ')}`);
+    console.error(`[${getTimestamp()}] [EMAIL CONFIG] ❌ Email service will not function properly`);
+    return false;
+  }
+  
+  // Validate Gmail App Password format (16 characters, no spaces)
+  const appPassword = process.env.EMAIL_PASSWORD;
+  if (appPassword.length !== 16 || /\s/.test(appPassword)) {
+    console.warn(`[${getTimestamp()}] [EMAIL CONFIG] ⚠️  EMAIL_PASSWORD may not be a valid Gmail App Password`);
+    console.warn(`[${getTimestamp()}] [EMAIL CONFIG] ⚠️  Gmail App Passwords should be 16 characters without spaces`);
+  }
+  
+  // Log configuration status without exposing credentials
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] ✅ Email service configured`);
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] ✅ Using email: ${process.env.EMAIL_USER}`);
+  console.log(`[${getTimestamp()}] [EMAIL CONFIG] ✅ Password length: ${appPassword.length} characters`);
+  
+  return true;
+};
+
+// Configure Nodemailer transporter with optimized settings for cloud deployment
 const createTransporter = () => {
   return nodemailer.createTransport({
-    service: process.env.EMAIL_SERVICE || 'gmail',
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false, // Use STARTTLS
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD
     },
-    // Add connection settings for better reliability
+    // Optimized connection pool settings for cloud environments
     pool: true,
-    maxConnections: 1,
-    rateDelta: 20000,
-    rateLimit: 5,
-    // Increase timeout to 60 seconds for slow connections
-    connectionTimeout: 60000,
-    greetingTimeout: 60000,
-    socketTimeout: 60000
+    maxConnections: 3,
+    maxMessages: 10,
+    rateDelta: 1000,
+    rateLimit: 3,
+    // Reduced timeouts to prevent client-side timeouts
+    connectionTimeout: 20000,  // 20 seconds
+    greetingTimeout: 15000,    // 15 seconds
+    socketTimeout: 30000,      // 30 seconds
+    // TLS security settings
+    tls: {
+      rejectUnauthorized: true,
+      minVersion: 'TLSv1.2'
+    }
   });
 };
 
@@ -131,25 +185,25 @@ const sendOTPEmail = async (email, otp) => {
       text: emailTemplate.text
     };
 
-    // Set timeout for email sending (60 seconds for better reliability)
-    // Try sending with retry logic
+    // Implement exponential backoff retry logic
+    // Delays: 1s, 2s, 4s for up to 3 attempts (total max time ~7 seconds)
     let lastError;
-    const maxRetries = 2;
+    const maxRetries = 3;
+    const startTime = Date.now();
+    const maskedEmail = maskEmail(email);
+    
+    // Log start of email send operation with masked email
+    console.log(`[${getTimestamp()}] [EMAIL SERVICE] Starting email send operation to ${maskedEmail}`);
     
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        console.log(`[EMAIL SERVICE] Attempt ${attempt}/${maxRetries} to send email to ${email}`);
+        console.log(`[${getTimestamp()}] [EMAIL SERVICE] Attempt ${attempt}/${maxRetries} to send email to ${maskedEmail}`);
         
-        const sendWithTimeout = Promise.race([
-          transporter.sendMail(mailOptions),
-          new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Email sending timeout')), 60000)
-          )
-        ]);
-
-        const info = await sendWithTimeout;
+        const info = await transporter.sendMail(mailOptions);
+        const duration = Date.now() - startTime;
         
-        console.log(`[EMAIL SERVICE] OTP email sent successfully to ${email}: ${info.messageId}`);
+        // Log success with messageId and duration in milliseconds
+        console.log(`[${getTimestamp()}] [EMAIL SERVICE] ✅ Email sent successfully to ${maskedEmail} | MessageID: ${info.messageId} | Duration: ${duration}ms`);
         
         return {
           success: true,
@@ -157,65 +211,71 @@ const sendOTPEmail = async (email, otp) => {
         };
       } catch (err) {
         lastError = err;
-        console.error(`[EMAIL SERVICE] Attempt ${attempt} failed:`, err.message);
+        const duration = Date.now() - startTime;
         
-        // If not the last attempt, wait before retrying
+        // Log failure with error type, error code, and duration
+        console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Attempt ${attempt} failed | Email: ${maskedEmail} | Error Type: ${err.name || 'Unknown'} | Error Code: ${err.code || 'N/A'} | Duration: ${duration}ms | Message: ${err.message}`);
+        
+        // If not the last attempt, wait with exponential backoff
         if (attempt < maxRetries) {
-          console.log(`[EMAIL SERVICE] Waiting 2 seconds before retry...`);
-          await new Promise(resolve => setTimeout(resolve, 2000));
+          // Exponential backoff: 1s, 2s, 4s
+          const delay = Math.pow(2, attempt - 1) * 1000;
+          console.log(`[${getTimestamp()}] [EMAIL SERVICE] Waiting ${delay}ms before retry attempt ${attempt + 1}...`);
+          await new Promise(resolve => setTimeout(resolve, delay));
         }
       }
     }
     
     // If all retries failed, throw the last error
+    const totalDuration = Date.now() - startTime;
+    console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ All ${maxRetries} attempts failed | Email: ${maskedEmail} | Total Duration: ${totalDuration}ms`);
     throw lastError;
-    
-    console.log(`[EMAIL SERVICE] OTP email sent successfully to ${email}: ${info.messageId}`);
-    
-    return {
-      success: true,
-      messageId: info.messageId
-    };
   } catch (error) {
-    console.error('[EMAIL SERVICE] Error sending OTP email:', {
-      email,
-      error: error.message,
-      code: error.code,
-      stack: error.stack
-    });
+    const maskedEmail = maskEmail(email);
     
-    // Categorize errors for better user feedback
-    if (error.code === 'EAUTH' || error.code === 'ENOTFOUND') {
-      const authError = new Error('Email service authentication failed. Please contact support.');
-      authError.code = 'EMAIL_AUTH_FAILED';
-      throw authError;
-    }
-    
-    if (error.code === 'ETIMEDOUT' || error.message.includes('timeout')) {
-      const timeoutError = new Error('Email service timeout. Please try again.');
-      timeoutError.code = 'EMAIL_TIMEOUT';
-      throw timeoutError;
-    }
-    
-    if (error.code === 'ECONNECTION' || error.message.includes('connection')) {
-      const connError = new Error('Unable to connect to email service. Please try again.');
-      connError.code = 'EMAIL_CONNECTION_FAILED';
-      throw connError;
-    }
+    // Log error with timestamp, error type, error code
+    console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Error sending OTP email | Email: ${maskedEmail} | Error Type: ${error.name || 'Unknown'} | Error Code: ${error.code || 'N/A'} | Message: ${error.message}`);
     
     // Re-throw with original message if already formatted
-    if (error.code && error.code.startsWith('EMAIL_') || error.code === 'INVALID_EMAIL' || error.code === 'INVALID_OTP') {
+    if (error.code && (error.code.startsWith('EMAIL_') || error.code === 'INVALID_EMAIL' || error.code === 'INVALID_OTP')) {
       throw error;
     }
     
-    // Generic email error
-    const genericError = new Error('Failed to send OTP email. Please try again.');
+    // Categorize nodemailer errors for better user feedback
+    // Map EAUTH errors to EMAIL_AUTH_FAILED
+    if (error.code === 'EAUTH') {
+      const authError = new Error('Email service authentication failed');
+      authError.code = 'EMAIL_AUTH_FAILED';
+      console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Authentication failed | Email: ${maskedEmail} | Error Code: EMAIL_AUTH_FAILED`);
+      throw authError;
+    }
+    
+    // Map ETIMEDOUT errors to EMAIL_TIMEOUT with retry suggestion
+    if (error.code === 'ETIMEDOUT' || error.message.includes('timeout')) {
+      const timeoutError = new Error('Email service timeout. Please try again');
+      timeoutError.code = 'EMAIL_TIMEOUT';
+      console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Timeout occurred | Email: ${maskedEmail} | Error Code: EMAIL_TIMEOUT`);
+      throw timeoutError;
+    }
+    
+    // Map ECONNECTION/ENOTFOUND errors to EMAIL_CONNECTION_FAILED
+    if (error.code === 'ECONNECTION' || error.code === 'ENOTFOUND' || error.message.includes('connection')) {
+      const connError = new Error('Unable to connect to email service');
+      connError.code = 'EMAIL_CONNECTION_FAILED';
+      console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Connection failed | Email: ${maskedEmail} | Error Code: EMAIL_CONNECTION_FAILED`);
+      throw connError;
+    }
+    
+    // Generic email error for any other nodemailer errors
+    const genericError = new Error('Failed to send OTP email. Please try again');
     genericError.code = 'EMAIL_SEND_FAILED';
     genericError.originalError = error.message;
+    console.error(`[${getTimestamp()}] [EMAIL SERVICE] ❌ Generic send failure | Email: ${maskedEmail} | Error Code: EMAIL_SEND_FAILED | Original: ${error.message}`);
     throw genericError;
   }
 };
 
 module.exports = {
-  sendOTPEmail
+  sendOTPEmail,
+  validateEmailConfig
 };

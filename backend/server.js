@@ -21,8 +21,11 @@ app.use(express.static(path.join(__dirname, '../blood_dona')));
 // Import OTP models and utilities
 const { OTP, OTPAttempt } = require('./models/OTP');
 const { generateOTP, getOTPExpiration } = require('./utils/otpGenerator');
-const { sendOTPEmail } = require('./services/emailService');
+const { sendOTPEmail, validateEmailConfig } = require('./services/emailService');
 const { otpRateLimitMiddleware } = require('./middleware/otpRateLimit');
+
+// Validate email configuration on startup
+validateEmailConfig();
 
 // Connect to MongoDB (uses MONGODB_URI from .env or defaults to local)
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/donorhub';
@@ -379,17 +382,32 @@ app.post('/api/auth/send-otp', otpRateLimitMiddleware, async (req, res) => {
         code: emailError.code
       });
       
-      // Return specific error message based on error code
-      let errorMessage = 'Failed to send OTP email. Please try again.';
-      if (emailError.code === 'EMAIL_TIMEOUT') {
-        errorMessage = 'Email service timeout. Please try again.';
-      } else if (emailError.code === 'EMAIL_AUTH_FAILED') {
-        errorMessage = 'Email service is temporarily unavailable. Please contact support.';
-      } else if (emailError.code === 'EMAIL_CONNECTION_FAILED') {
-        errorMessage = 'Unable to connect to email service. Please try again.';
+      // Map error codes to user-friendly messages
+      let errorMessage = 'Failed to send OTP email. Please try again';
+      let statusCode = 500;
+      
+      switch (emailError.code) {
+        case 'EMAIL_AUTH_FAILED':
+          errorMessage = 'Email service authentication failed';
+          break;
+        case 'EMAIL_TIMEOUT':
+          errorMessage = 'Email service timeout. Please try again';
+          break;
+        case 'EMAIL_CONNECTION_FAILED':
+          errorMessage = 'Unable to connect to email service';
+          break;
+        case 'EMAIL_NOT_CONFIGURED':
+          errorMessage = 'Email service not configured';
+          break;
+        case 'INVALID_EMAIL':
+          errorMessage = 'Invalid email address';
+          statusCode = 400;
+          break;
+        default:
+          errorMessage = emailError.message || 'Failed to send OTP email. Please try again';
       }
       
-      return res.status(500).json({
+      return res.status(statusCode).json({
         success: false,
         message: errorMessage,
         errorCode: emailError.code || 'EMAIL_SEND_FAILED'
@@ -614,17 +632,32 @@ app.post('/api/auth/resend-otp', otpRateLimitMiddleware, async (req, res) => {
         code: emailError.code
       });
       
-      // Return specific error message based on error code
-      let errorMessage = 'Failed to resend OTP email. Please try again.';
-      if (emailError.code === 'EMAIL_TIMEOUT') {
-        errorMessage = 'Email service timeout. Please try again.';
-      } else if (emailError.code === 'EMAIL_AUTH_FAILED') {
-        errorMessage = 'Email service is temporarily unavailable. Please contact support.';
-      } else if (emailError.code === 'EMAIL_CONNECTION_FAILED') {
-        errorMessage = 'Unable to connect to email service. Please try again.';
+      // Map error codes to user-friendly messages
+      let errorMessage = 'Failed to resend OTP email. Please try again';
+      let statusCode = 500;
+      
+      switch (emailError.code) {
+        case 'EMAIL_AUTH_FAILED':
+          errorMessage = 'Email service authentication failed';
+          break;
+        case 'EMAIL_TIMEOUT':
+          errorMessage = 'Email service timeout. Please try again';
+          break;
+        case 'EMAIL_CONNECTION_FAILED':
+          errorMessage = 'Unable to connect to email service';
+          break;
+        case 'EMAIL_NOT_CONFIGURED':
+          errorMessage = 'Email service not configured';
+          break;
+        case 'INVALID_EMAIL':
+          errorMessage = 'Invalid email address';
+          statusCode = 400;
+          break;
+        default:
+          errorMessage = emailError.message || 'Failed to resend OTP email. Please try again';
       }
       
-      return res.status(500).json({
+      return res.status(statusCode).json({
         success: false,
         message: errorMessage,
         errorCode: emailError.code || 'EMAIL_SEND_FAILED'
