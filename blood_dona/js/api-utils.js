@@ -9,7 +9,7 @@ const API_CONFIG = {
     BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/api'  // Development
         : 'https://donorhub-api-mxcl.onrender.com/api',  // Production - Update with your actual backend URL
-    TIMEOUT: 10000, // 10 seconds
+    TIMEOUT: 120000, // 120 seconds (2 minutes) - increased for email operations
     HEADERS: {
         'Content-Type': 'application/json'
     }
