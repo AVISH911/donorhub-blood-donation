@@ -8,7 +8,7 @@
 const API_CONFIG = {
     BASE_URL: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? 'http://localhost:5000/api'  // Development
-        : 'https://donorhub-api.onrender.com/api',  // Production - Update with your actual backend URL
+        : 'https://donorhub-api-mxcl.onrender.com/api',  // Production - Update with your actual backend URL
     TIMEOUT: 10000, // 10 seconds
     HEADERS: {
         'Content-Type': 'application/json'

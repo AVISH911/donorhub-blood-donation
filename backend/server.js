@@ -6,8 +6,13 @@ const cors = require('cors');
 const app = express();
 const path = require('path');
 
-// Middleware
-app.use(cors());
+// Middleware - Configure CORS to allow all origins
+app.use(cors({
+  origin: '*', // Allow all origins
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Serve static files from blood_dona directory
