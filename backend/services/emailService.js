@@ -1,13 +1,22 @@
 const nodemailer = require('nodemailer');
 
-// Configure Nodemailer transporter
+// Configure Nodemailer transporter with better timeout and connection settings
 const createTransporter = () => {
   return nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE || 'gmail',
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD
-    }
+    },
+    // Add connection settings for better reliability
+    pool: true,
+    maxConnections: 1,
+    rateDelta: 20000,
+    rateLimit: 5,
+    // Increase timeout to 30 seconds
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000
   });
 };
 
@@ -122,11 +131,11 @@ const sendOTPEmail = async (email, otp) => {
       text: emailTemplate.text
     };
 
-    // Set timeout for email sending (10 seconds)
+    // Set timeout for email sending (30 seconds for better reliability)
     const sendWithTimeout = Promise.race([
       transporter.sendMail(mailOptions),
       new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Email sending timeout')), 10000)
+        setTimeout(() => reject(new Error('Email sending timeout')), 30000)
       )
     ]);
 
