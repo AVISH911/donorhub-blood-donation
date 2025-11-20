@@ -91,7 +91,8 @@
   - Monitor Render logs during first OTP send attempt
   - _Requirements: 1.1, 1.2, 4.1_
 
-- [x] 8. Perform end-to-end testing on production
+- [-] 8. Perform end-to-end testing on production
+
 
 
 
